@@ -1,0 +1,102 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "api/system/v1/base.proto";
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service SysDept {
+  rpc CreateSysDept (SysDeptRep) returns (EmptyReply){
+    option (google.api.http) = {
+      post: "/v1/dept/save",
+      body: "*"
+    };
+  };
+  rpc UpdateSysDept (SysDeptRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/dept/update",
+      body: "*"
+    };
+  };
+  rpc DeleteSysDept (DeleteSysDeptRep) returns (EmptyReply){
+    option (google.api.http) = {
+      delete: "/v1/dept/delete/{id}",
+    };
+  };
+  rpc GetSysDept (GetSysDeptRep) returns (GetSysDeptReply){
+    option (google.api.http) = {
+      get: "/v1/dept/info/{id}",
+    };
+  };
+  rpc ListSysDept (ListSysDeptRep) returns (ListSysDeptReply){
+    option (google.api.http) = {
+      post: "/v1/dept/list",
+      body: "*"
+    };
+  };
+  rpc ExcludeDept (ExcludeDeptRep) returns (ListSysDeptReply){
+    option (google.api.http) = {
+      get: "/v1/dept/list/exclude/{id}",
+    };
+  };
+  rpc DeptTree (DeptTreeReq) returns (DeptTreeReply){
+    option (google.api.http) = {
+      get: "/v1/dept/deptTree",
+    };
+  };
+  rpc GetSysRoleDept (GetSysRoleDeptRep) returns (GetSysRoleDeptReply){
+    option (google.api.http) = {
+      get: "/v1/dept/deptTreeByRoleId/{roleId}",
+    };
+  };
+}
+
+message SysDeptRep {
+  string dept_id = 1;
+  string parentId = 2;
+  string deptName = 3;
+  int64 orderNum = 4;
+  string leader = 5;
+  string phone = 6;
+  string email = 7;
+  string status = 8;
+}
+message DeleteSysDeptRep {
+  string id = 1;
+}
+message GetSysDeptRep {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message GetSysDeptReply {
+  DeptReply dept = 1;
+}
+message ExcludeDeptRep {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message DeptTreeReq {}
+message DeptTreeReply {
+  repeated DeptTree dept = 1;
+}
+message DeptTree {
+  string id = 1;
+  string pid = 2;
+  string label = 3;
+  repeated DeptTree children = 4;
+}
+message ListSysDeptRep {}
+message ListSysDeptReply {
+  repeated DeptReply dept = 1;
+}
+
+message GetSysRoleDeptRep {
+  string roleId = 1;
+}
+message GetSysRoleDeptReply {
+  repeated DeptTree dept = 1;
+  repeated string checkedKeys = 2;
+}

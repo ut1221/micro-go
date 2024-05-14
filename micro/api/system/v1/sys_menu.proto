@@ -1,0 +1,121 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "api/system/v1/base.proto";
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service SysMenu {
+  rpc CreateSysMenu (SysMenuRep) returns (EmptyReply){
+    option (google.api.http) = {
+      post: "/v1/menu/save",
+      body: "*"
+    };
+  };
+  rpc UpdateSysMenu (SysMenuRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/menu/update",
+      body: "*"
+    };
+  };
+  rpc DeleteSysMenu (DeleteSysMenuRep) returns (EmptyReply){
+    option (google.api.http) = {
+      delete: "/v1/menu/delete/{id}",
+    };
+  };
+  rpc GetSysMenu (GetSysMenuRep) returns (GetSysMenuReply){
+    option (google.api.http) = {
+      get: "/v1/menu/info/{id}",
+    };
+  };
+  rpc ListSysMenu (ListSysMenuRep) returns (ListSysMenuReply){
+    option (google.api.http) = {
+      post: "/v1/menu/list",
+      body: "*"
+    };
+  };
+  rpc GetSysRoleMenu (GetSysRoleMenuRep) returns (GetSysRoleMenuReply){
+    option (google.api.http) = {
+      get: "/v1/menu/menuTree/{roleId}",
+    };
+  };
+  rpc GetTreeSelect (GetTreeSelectRep) returns (GetTreeSelectReply){
+    option (google.api.http) = {
+      get: "/v1/menu/treeSelect",
+    };
+  };
+}
+
+message SysMenuRep {
+  string menuId = 1;
+  string parentId = 2;
+  string menuName = 3;
+  string icon = 4;
+  string menuType = 5;
+  int64 orderNum = 6;
+  string isFrame = 7;
+  string isCache = 8;
+  string visible = 9;
+  string status = 10;
+  string path = 11;
+  string component = 12;
+  string perms = 13;
+  string query = 14;
+}
+message DeleteSysMenuRep {
+  string id = 1 [(validate.rules).string.min_len = 1];;
+}
+message GetSysMenuRep {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message GetSysMenuReply {
+  MenuReply menu = 1;
+}
+
+message ListSysMenuRep {}
+message ListSysMenuReply {
+  repeated MenuReply menus = 1;
+}
+
+message GetSysRoleMenuRep {
+  string roleId = 1 [(validate.rules).string.min_len = 1];
+}
+message GetSysRoleMenuReply {
+  repeated RoleMenuReply menus = 1;
+  repeated string checkedKeys = 2;
+}
+message RoleMenuReply {
+  string id = 1;
+  string pid = 2;
+  string label = 3;
+  repeated RoleMenuReply children = 4;
+}
+message MenuReply {
+  string createdAt = 1;
+  string remark = 2;
+  string menuId = 3;
+  string menuName = 4;
+  string parentName = 5;
+  string parentId = 6;
+  int64 orderNum = 7;
+  string path = 8;
+  string component = 9;
+  string query = 10;
+  string isFrame = 11;
+  string isCache = 12;
+  string menuType = 13;
+  string visible = 14;
+  string status = 15;
+  string perms = 16;
+  string icon = 17;
+  repeated string children = 18;
+}
+message GetTreeSelectRep {}
+message GetTreeSelectReply {
+  repeated RoleMenuReply menus = 1;
+}

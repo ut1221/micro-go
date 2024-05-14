@@ -1,0 +1,23 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+data:
+  database:
+    driver: mysql
+    source: root:Pl@1221view@tcp(127.0.0.1:3306)/micro_user?parseTime=True&loc=Local
+  redis:
+    username:
+    addr: 127.0.0.1:6379
+    password:
+    db: 1
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+
+oss:
+  access_key: a7__nphz-KdZSFsGyBc4oDcDeve8cixj4DwcbSLS
+  secret_key: pUjlZChW2Oq9K7CXibYSp84yK4IjCyWmBirodGgf
+  bucket: micro-go

@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "api/system/v1/base.proto";
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service Auth {
+  rpc Logout (LogoutReq) returns (LogoutReply){
+    option (google.api.http) = {
+      post: "/v1/logout",
+      body: "*"
+    };
+  };
+  rpc Captcha (CaptchaReq) returns (CaptchaReply) {
+    option (google.api.http) = {
+      get: "/v1/captchaImage"
+    };
+  }
+  rpc Login (LoginReq) returns (LoginReply){
+    option (google.api.http) = {
+      post: "/v1/login",
+      body: "*"
+    };
+  };
+  rpc UserInfo (UserInfoReq) returns (UserInfoReply) {
+    option (google.api.http) = {
+      get: "/v1/getInfo",
+    };
+  }
+  rpc Routers (RoutersReq) returns (RoutersReply) {
+    option (google.api.http) = {
+      get: "/v1/getRouters",
+    };
+  }
+  rpc Register (RegisterReq) returns (RegisterReply){
+    option (google.api.http) = {
+      post: "/v1/register",
+      body: "*"
+    };
+  };
+
+}
+
+message LogoutReq{}
+message LogoutReply {}
+message CaptchaReq {}
+message CaptchaReply{
+  bool captchaEnable = 1;
+  string img = 2;
+  string uuid = 3;
+}
+message LoginReq {
+  string username = 1;
+  string password = 2;
+  string uuid = 3;
+  string code = 4;
+}
+message LoginReply {
+  string token = 1;
+}
+message UserInfoReq {}
+message UserInfoReply {
+  repeated string permissions = 1;
+  repeated string roles = 2;
+  UserReply user = 3;
+}
+
+message RoutersReq {}
+message RoutersReply {
+  repeated Router routers = 1;
+}
+message Router {
+  string name = 1;
+  string path = 2;
+  string redirect = 4;
+  string component = 5;
+  Meta meta = 7;
+  repeated Router children = 8;
+  message Meta {
+    string title = 1;
+    string icon = 2;
+    bool noCache = 3;
+    string link = 5;
+  }
+  string menuId = 9;
+  string parentId = 10;
+}
+message RegisterReq {
+  string username = 1;
+  string nickname = 2;
+  string mobile = 3;
+  string password = 4;
+}
+message RegisterReply {}

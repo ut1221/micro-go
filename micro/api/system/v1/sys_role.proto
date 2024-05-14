@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "api/system/v1/base.proto";
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service SysRole {
+  rpc CreateSysRole (ModifySysRoleRep) returns (EmptyReply){
+    option (google.api.http) = {
+      post: "/v1/role/save",
+      body: "*"
+    };
+  };
+  rpc UpdateSysRole (ModifySysRoleRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/role/update",
+      body: "*"
+    };
+  };
+  rpc DataScopeSysRole (DataScopeSysRoleRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/role/dataScope", // 分配权限
+      body: "*"
+    };
+  };
+  rpc ChangeStatusSysRole (ChangeStatusSysRoleRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/role/changeStatus",
+      body: "*"
+    };
+  };
+  rpc DeleteSysRole (DeleteSysRoleRep) returns (EmptyReply){
+    option (google.api.http) = {
+      delete: "/v1/role/delete/{id}",
+    };
+  };
+  rpc GetSysRole (GetSysRoleRep) returns (GetSysRoleReply){
+    option (google.api.http) = {
+      get: "/v1/role/info/{roleId}",
+    };
+  };
+  rpc ListSysRole (ListSysRoleRep) returns (ListSysRoleReply){
+    option (google.api.http) = {
+      post: "/v1/role/list",
+      body: "*"
+    };
+  };
+  rpc AllocatedList (IsAllocatedListRep) returns (IsAllocatedListReply){
+    option (google.api.http) = {
+      post: "/v1/role/authUser/allocatedList", //已授权用户列表
+      body: "*"
+    };
+  };
+  rpc UnAllocatedList (IsAllocatedListRep) returns (IsAllocatedListReply){
+    option (google.api.http) = {
+      post: "/v1/role/authUser/unallocatedList", //未授权用户列表
+      body: "*"
+    };
+  };
+  rpc AuthUserCancel (AuthUserCancelRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/role/authUser/cancel", //取消用户授权角色
+      body: "*"
+    };
+  };
+  rpc AuthUserCancelAll (AuthUserSelectAllRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/role/authUser/cancelAll", //批量取消用户授权角色
+      body: "*"
+    };
+  };
+  rpc AuthUserSelectAll (AuthUserSelectAllRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/role/authUser/selectAll", //授权用户选择
+      body: "*"
+    };
+  };
+}
+
+message ModifySysRoleRep {
+  string remark = 1;
+  string roleId = 2;
+  string roleName = 3;
+  string roleKey = 4;
+  int64 roleSort = 5;
+  string dataScope = 6;
+  bool menuCheckStrictly = 7;
+  bool deptCheckStrictly = 8;
+  string status = 9;
+  bool flag = 10;
+  repeated string menuIds = 11;
+  repeated string deptIds = 12;
+  repeated string deptNames = 13;
+  bool admin = 14;
+}
+message DataScopeSysRoleRep {
+  string roleId = 1;
+  repeated string deptIds = 2;
+  string dataScope = 3;
+}
+message ChangeStatusSysRoleRep {
+  string roleId = 1;
+  string status = 2;
+}
+message DeleteSysRoleRep {
+  string id = 1;
+}
+message GetSysRoleRep {
+  string roleId = 1;
+}
+message GetSysRoleReply {
+  RoleReply role = 1;
+}
+message ListSysRoleRep {
+  //pageNum
+  int64 pageNum = 1 [(validate.rules).int64.gt = 0];
+  //页面大小
+  int64 pageSize = 2 [(validate.rules).int64.gt = 0];
+}
+message ListSysRoleReply {
+  int64 total = 1;
+  repeated RoleReply rows = 2;
+}
+message IsAllocatedListRep {
+  //pageNum
+  int64 pageNum = 1 [(validate.rules).int64.gt = 0];
+  //页面大小
+  int64 pageSize = 2 [(validate.rules).int64.gt = 0];
+  string roleId = 3;
+}
+message IsAllocatedListReply {
+  repeated UserReply rows = 1;
+  int64 total = 2;
+}
+message AuthUserCancelRep {
+  string roleId = 1;
+  string userId = 2;
+}
+message AuthUserSelectAllRep {
+  string roleId = 1;
+  string userIds = 2;
+}

@@ -1,0 +1,187 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+
+option go_package = "micro/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service SysDict {
+  rpc SysDictDataType (SysDictDataTypeReq) returns (SysDictDataTypeReply) {
+    option (google.api.http) = {
+      get: "/v1/dict/data/{type}"
+    };
+  };
+  rpc CreateSysDictType (SysDictTypeRep) returns (EmptySysDictReply){
+    option (google.api.http) = {
+      post: "/v1/dict/type/save"
+      body: "*"
+    };
+  };
+  rpc UpdateSysDictType (SysDictTypeRep) returns (EmptySysDictReply){
+    option (google.api.http) = {
+      put: "/v1/dict/type/update"
+      body: "*"
+    };
+  };
+  rpc DeleteSysDictType (DeleteSysDictTypeRep) returns (EmptySysDictReply){
+    option (google.api.http) = {
+      delete: "/v1/dict/type/delete/{id}"
+    };
+  };
+  rpc GetSysDictType (GetSysDictRep) returns (GetSysDictTypeReply){
+    option (google.api.http) = {
+      get: "/v1/dict/type/info/{id}"
+    };
+  };
+  rpc ListSysDictType (ListSysDictTypeRep) returns (ListSysDictTypeReply){
+    option (google.api.http) = {
+      post: "/v1/dict/type/list"
+      body: "*"
+    };
+  };
+  rpc OptionSelectType (OptionSelectTypeRep) returns (OptionSelectTypeReply){
+    option (google.api.http) = {
+      get: "/v1/dict/type/option/select"
+    };
+  };
+  rpc CreateSysDictData (SysDictDataRep) returns (EmptySysDictReply){
+    option (google.api.http) = {
+      post: "/v1/dict/data/save"
+      body: "*"
+    };
+  };
+  rpc UpdateSysDictData (SysDictDataRep) returns (EmptySysDictReply){
+    option (google.api.http) = {
+      put: "/v1/dict/data/update"
+      body: "*"
+    };
+  };
+  rpc DeleteSysDictData (DeleteSysDictDataRep) returns (EmptySysDictReply){
+    option (google.api.http) = {
+      delete: "/v1/dict/data/delete/{id}"
+    };
+  };
+  rpc GetSysDictData (GetSysDictRep) returns (GetSysDictDataReply){
+    option (google.api.http) = {
+      get: "/v1/dict/data/info/{id}"
+    };
+  };
+  rpc ListSysDictData (ListSysDictDataRep) returns (ListSysDictDataReply){
+    option (google.api.http) = {
+      post: "/v1/dict/data/list",
+      body: "*"
+    };
+  };
+  rpc RefreshCacheSysDict(CacheSysDicReq) returns (EmptySysDictReply){
+    option (google.api.http) = {
+      get: "/v1/dict/type/refresh"
+    };
+  };
+}
+
+message EmptySysDictReply {}
+
+message SysDictDataTypeReq {
+  string type = 1;
+}
+message SysDictDataTypeReply {
+  repeated DictDataReply dict = 1;
+}
+
+message SysDictTypeRep {
+  string dictId = 1;
+  string dictName = 2;
+  string dictType = 3;
+  string status = 4;
+  string remark = 5;
+}
+
+message DeleteSysDictTypeRep {
+  string id = 1;
+}
+
+message GetSysDictRep {
+  string id = 1;
+}
+message GetSysDictTypeReply {
+  DictTypeReply dict = 1;
+}
+
+message GetSysDictDataReply {
+  DictDataReply dict = 1;
+}
+message ListSysDictTypeRep {
+  //pageNum
+  int64 pageNum = 1 [(validate.rules).int64.gt = 0];
+  //页面大小
+  int64 pageSize = 2 [(validate.rules).int64.gt = 0];
+}
+message ListSysDictTypeReply {
+  int64 total = 1;
+  repeated DictTypeReply rows = 2;
+}
+message CacheSysDicReq {}
+message OptionSelectTypeRep {
+}
+message OptionSelectTypeReply {
+  repeated DictTypeReply dict = 2;
+}
+message SysDictDataRep {
+  string dictCode = 1;
+  int64 dictSort = 2;
+  string dictLabel = 3;
+  string dictValue = 4;
+  string dictType = 5;
+  string cssClass = 6;
+  string listClass = 7;
+  string isDefault = 8;
+  string status = 9;
+  bool default = 10;
+  string createAt = 11;
+  string remark = 12;
+}
+
+message DeleteSysDictDataRep {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message ListSysDictDataRep {
+  //pageNum
+  int64 pageNum = 1 [(validate.rules).int64.gt = 0];
+  //页面大小
+  int64 pageSize = 2 [(validate.rules).int64.gt = 0];
+  string dictType = 3;
+}
+message ListSysDictDataReply {
+  int64 total = 1;
+  repeated DictDataReply rows = 2;
+}
+
+
+message DictTypeReply {
+  string dictId = 1;
+  string createdAt = 2;
+  string remark = 3;
+  string dictName = 4;
+  string dictType = 5;
+  string status = 6;
+}
+
+message DictDataReply {
+  string dictCode = 1;
+  int64 dictSort = 2;
+  string dictLabel = 3;
+  string dictValue = 4;
+  string dictType = 5;
+  string cssClass = 6;
+  string listClass = 7;
+  string isDefault = 8;
+  string status = 9;
+  bool default = 10;
+  string createdAt = 11;
+  string remark = 12;
+}

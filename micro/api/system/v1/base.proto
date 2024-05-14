@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+message EmptyReply {}
+
+//用户通用返回信息
+message UserReply {
+  string remark = 5;
+  string userId = 6;
+  string deptId = 7;
+  string userName = 8;
+  string nickName = 9;
+  string email = 10;
+  string phoneNumber = 11;
+  string sex = 12;
+  string avatar = 13;
+  string password = 14;
+  string status = 15;
+  string delFlag = 16;
+  string loginIp = 17;
+  string loginDate = 18;
+  DeptReply dept = 19;
+  repeated string roleIds = 20;
+  repeated string postIds = 21;
+  bool admin = 23;
+  repeated RoleReply roles = 24;
+  string createdAt = 25;
+}
+
+//部门通用返回信息
+message DeptReply {
+  string createdAt = 1;
+  string remark = 2;
+  string deptId = 3;
+  string parentId = 4;
+  string ancestors = 5;
+  string deptName = 6;
+  int64 orderNum = 7;
+  string leader = 8;
+  string phone = 9;
+  string email = 10;
+  string status = 11;
+  string parentName = 12;
+  repeated DeptReply children = 13;
+}
+
+//角色通用返回信息
+message RoleReply {
+  string remark = 1;
+  string roleId = 2;
+  string roleName = 3;
+  string roleKey = 4;
+  int64 roleSort = 5;
+  string dataScope = 6;
+  bool menuCheckStrictly = 7;
+  bool deptCheckStrictly = 8;
+  string status = 9;
+  bool flag = 10;
+  repeated string menuIds = 11;
+  repeated string deptIds = 12;
+  repeated string deptNames = 13;
+  bool admin = 14;
+  string createdAt = 15;
+}
+
+message PostReply {
+  string remark = 1;
+  string postId = 2;
+  string postCode = 3;
+  string postName = 4;
+  int64 postSort = 5;
+  string status = 6;
+  string createdAt = 7;
+}
+
+message TimeReq {
+  string beginTime = 1;
+  string endTime = 2;
+}

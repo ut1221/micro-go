@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "api/system/v1/base.proto";
+import "validate/validate.proto";
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service SysUser {
+  rpc CreateSysUser (CreateSysUserRep) returns (CreateSysUserReply){
+    option (google.api.http) = {
+      post: "/v1/user/create",
+      body: "*"
+    };
+  };
+  rpc UpdateSysUser (UpdateSysUserRep) returns (UpdateSysUserReply){
+    option (google.api.http) = {
+      put: "/v1/user/update",
+      body: "*"
+    };
+  };
+  rpc ResetPwd (ResetPwdRep) returns (ResetPwdReply){
+    option (google.api.http) = {
+      put: "/v1/user/resetPwd",
+      body: "*"
+    };
+  };
+  rpc DeleteSysUser (DeleteSysUserRep) returns (DeleteSysUserReply){
+    option (google.api.http) = {
+      delete: "/v1/user/delete/{id}",
+    };
+  };
+  rpc SaveSysUser (SaveSysUserRep) returns (SaveSysUserReply){
+    option (google.api.http) = {
+      post: "/v1/user/save",
+      body: "*"
+    };
+  };
+  //根据用户ID获取详细信息
+  rpc GetSysUser (GetSysUserRep) returns (GetSysUserReply){
+    option (google.api.http) = {
+      get: "/v1/user/info/{id}"
+    };
+  };
+  //获取角色以及岗位详细信息
+  rpc GetOtherInfo (GetOtherInfoRep) returns (GetOtherInfoReply){
+    option (google.api.http) = {
+      get: "/v1/user/otherInfo"
+    };
+  };
+  rpc ListSysUser (ListSysUserRep) returns (ListSysUserReply){
+    option (google.api.http) = {
+      post: "/v1/user/list",
+      body: "*"
+    };
+  };
+  rpc Profile (ProfileRep) returns (ProfileReply){
+    option (google.api.http) = {
+      get: "/v1/user/profile",
+    };
+  };
+  rpc GetAuthRoleSysUser (GetAuthRoleSysUserRep) returns (GetAuthRoleSysUserReply){
+    option (google.api.http) = {
+      get: "/v1/user/authRole/{id}",
+    };
+  };
+  rpc AuthRoleSysUser (AuthRoleSysUserRep) returns (AuthRoleSysUserReply){
+    option (google.api.http) = {
+      put: "/v1/user/authRole",
+      body: "*"
+    };
+  };
+}
+
+message CreateSysUserRep {}
+message CreateSysUserReply {}
+
+message UpdateSysUserRep {
+  string userId = 1;
+  string deptId = 2;
+  string userName = 3;
+  string nickName = 4;
+  string password = 5;
+  string phoneNumber = 6;
+  string email = 7;
+  string sex = 8;
+  string status = 9;
+  string remark = 10;
+  repeated string postIds = 11;
+  repeated string roleIds = 12;
+}
+message UpdateSysUserReply {}
+
+message ResetPwdRep {
+  string userId = 1;
+  string password = 2;
+}
+message ResetPwdReply {}
+message DeleteSysUserRep {
+  string id = 1;
+}
+message DeleteSysUserReply {
+  string userId = 1;
+}
+
+message SaveSysUserRep {
+  string deptId = 1;
+  string userName = 2;
+  string nickName = 3;
+  string password = 4 [(validate.rules).string.pattern = "(?i)^[0-9a-f]+$"];
+  string phoneNumber = 5;
+  string email = 6;
+  string sex = 7;
+  string status = 8;
+  string remark = 9;
+  repeated string postIds = 10;
+  repeated string roleIds = 11;
+}
+message SaveSysUserReply {}
+
+message GetSysUserRep {
+  string id = 1;
+}
+message GetSysUserReply {
+  UserReply user = 1;
+  repeated string postIds = 2;
+  repeated string roleIds = 3;
+  repeated RoleReply roles = 4;
+  repeated PostReply posts = 5;
+}
+message GetOtherInfoRep {}
+message GetOtherInfoReply {
+  repeated RoleReply roles = 1;
+  repeated PostReply posts = 2;
+}
+
+message ListSysUserRep {
+  //pageNum
+  int64 pageNum = 1 [(validate.rules).int64.gt = 0];
+  //页面大小
+  int64 pageSize = 2 [(validate.rules).int64.gt = 0];
+  string deptId = 3;
+  string userName = 4;
+  int64 status = 5;
+  string phoneNumber = 6;
+  TimeReq params = 7;
+}
+
+message ListSysUserReply {
+  int64 total = 1;
+  repeated ListSysUser rows = 2;
+}
+
+message ListSysUser {
+  UserReply user = 1;
+  DeptReply dept = 2;
+}
+
+message ProfileRep {}
+message ProfileReply {
+  UserReply user = 1;
+}
+
+message GetAuthRoleSysUserRep {
+  string id = 1;
+}
+
+message GetAuthRoleSysUserReply {
+  UserReply user = 1;
+  repeated RoleReply roles = 2;
+}
+message AuthRoleSysUserRep {
+  string roleIds = 1;
+  string userId = 2;
+}
+message AuthRoleSysUserReply {
+}

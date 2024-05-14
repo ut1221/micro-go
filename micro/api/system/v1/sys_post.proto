@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "api/system/v1/base.proto";
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service SysPost {
+  rpc CreateSysPost (SysPostRep) returns (EmptyReply){
+    option (google.api.http) = {
+      post: "/v1/post/save",
+      body: "*"
+    };
+  };
+  rpc UpdateSysPost (SysPostRep) returns (EmptyReply){
+    option (google.api.http) = {
+      put: "/v1/post/update",
+      body: "*"
+    };
+  };
+  rpc DeleteSysPost (DeleteSysPostRep) returns (EmptyReply){
+    option (google.api.http) = {
+      delete: "/v1/post/delete/{id}",
+    };
+  };
+  rpc GetSysPost (GetSysPostRep) returns (GetSysPostReply) {
+    option (google.api.http) = {
+      get: "/v1/post/info/{id}",
+    };
+  };
+  rpc ListSysPost (ListSysPostRep) returns (ListSysPostReply){
+    option (google.api.http) = {
+      post: "/v1/post/list",
+      body: "*"
+    };
+  };
+}
+
+message SysPostRep {
+  string postId = 1;
+  string postCode = 2;
+  string postName = 3;
+  int64 postSort = 4;
+  string status = 5;
+  string remark = 6;
+}
+
+message DeleteSysPostRep {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetSysPostRep {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message GetSysPostReply {
+    PostReply post = 1;
+}
+
+message ListSysPostRep {
+  //pageNum
+  int64 pageNum = 1 [(validate.rules).int64.gt = 0];
+  //页面大小
+  int64 pageSize = 2 [(validate.rules).int64.gt = 0];
+}
+message ListSysPostReply {
+  int64 total = 1;
+  repeated PostReply rows = 2;
+}

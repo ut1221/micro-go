@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "micro/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service Monitor {
+	rpc MonitorServer (MonitorServerReq) returns (MonitorServerReply){
+		option (google.api.http) = {
+			get: "/v1/monitor/server",
+		};
+	};
+}
+
+message MonitorServerReq {}
+message MonitorServerReply {
+	Cpu cpu = 1;
+	Mem mem = 2;
+	Jvm jvm = 3;
+	Sys sys = 4;
+	repeated SysFiles sysFiles = 5;
+}
+
+message Cpu {
+	int32 cpuNum = 1;
+	string total = 2;
+	string sys = 3;
+	string used = 4;
+	string wait = 5;
+	string free = 6;
+}
+
+message Mem {
+	string total = 1;
+	string used = 2;
+	string free = 3;
+	string usage = 4;
+}
+
+message Jvm {
+	float total = 1;
+	int32 max = 2;
+	float free = 3;
+	string version = 4;
+	string home = 5;
+	string runTime = 6;
+	string inputArgs = 7;
+	string startTime = 8;
+	float used = 9;
+	float usage = 10;
+	string name = 11;
+}
+
+message Sys {
+	string computerName = 1;
+	string computerIp = 2;
+	string userDir = 3;
+	string osName = 4;
+	string osArch = 5;
+}
+
+message SysFiles {
+	string dirName = 1;
+	string sysTypeName = 2;
+	string typeName = 3;
+	string total = 4;
+	string free = 5;
+	string used = 6;
+	string usage = 7;
+}

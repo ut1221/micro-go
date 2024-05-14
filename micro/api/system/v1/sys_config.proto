@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package api.system.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+option go_package = "micro/api/api/system/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.system.v1";
+
+service SysConfig {
+  rpc CreateSysConfig (CreateSysConfigRep) returns (EmptySysConfigReply){
+    option (google.api.http) = {
+      post: "/v1/config/create",
+      body: "*"
+    };
+  };
+  rpc UpdateSysConfig (UpdateSysConfigRep) returns (EmptySysConfigReply);
+  rpc DeleteSysConfig (DeleteSysConfigRep) returns (EmptySysConfigReply);
+  rpc GetSysConfig (GetSysConfigRep) returns (GetSysConfigReply);
+  rpc ListSysConfig (ListSysConfigRep) returns (ListSysConfigReply){
+    option (google.api.http) = {
+      post: "/v1/config/list",
+      body: "*"
+    };
+  };
+  rpc ConfigByKey (ConfigByKeyReq) returns (ConfigByKeyReply){
+    option (google.api.http) = {
+      get: "/v1/config/configKey/{key}",
+    };
+  };
+}
+
+message CreateSysConfigRep {}
+message EmptySysConfigReply {}
+
+message UpdateSysConfigRep {}
+
+message DeleteSysConfigRep {}
+
+message GetSysConfigRep {
+  string id = 1 [(validate.rules).string.min_len = 1];
+}
+message GetSysConfigReply {
+  ConfigReply config = 1;
+}
+
+message ListSysConfigRep {
+  //pageNum
+  int64 pageNum = 1 [(validate.rules).int64.gt = 0];
+  //页面大小
+  int64 pageSize = 2 [(validate.rules).int64.gt = 0];
+}
+message ListSysConfigReply {
+  repeated ConfigReply rows = 1;
+  int64 total = 2;
+}
+
+message ConfigByKeyReq {
+  string key = 1;
+}
+
+message ConfigByKeyReply {
+  string value = 1;
+}
+
+message ConfigReply {
+  string configId = 1;
+  string configName = 2;
+  string configKey = 3;
+  string configValue = 4;
+  string configType = 5;
+  string remark = 6;
+  string createdAt = 7;
+}

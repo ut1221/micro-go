@@ -1,0 +1,2202 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /v1/captchaImage:
+        get:
+            tags:
+                - Auth
+            operationId: Auth_Captcha
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.CaptchaReply'
+    /v1/config/configKey/{key}:
+        get:
+            tags:
+                - SysConfig
+            operationId: SysConfig_ConfigByKey
+            parameters:
+                - name: key
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ConfigByKeyReply'
+    /v1/config/create:
+        post:
+            tags:
+                - SysConfig
+            operationId: SysConfig_CreateSysConfig
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.CreateSysConfigRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysConfigReply'
+    /v1/config/list:
+        post:
+            tags:
+                - SysConfig
+            operationId: SysConfig_ListSysConfig
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysConfigRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysConfigReply'
+    /v1/dept/delete/{id}:
+        delete:
+            tags:
+                - SysDept
+            operationId: SysDept_DeleteSysDept
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/dept/deptTree:
+        get:
+            tags:
+                - SysDept
+            operationId: SysDept_DeptTree
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.DeptTreeReply'
+    /v1/dept/deptTreeByRoleId/{roleId}:
+        get:
+            tags:
+                - SysDept
+            operationId: SysDept_GetSysRoleDept
+            parameters:
+                - name: roleId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysRoleDeptReply'
+    /v1/dept/info/{id}:
+        get:
+            tags:
+                - SysDept
+            operationId: SysDept_GetSysDept
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysDeptReply'
+    /v1/dept/list:
+        post:
+            tags:
+                - SysDept
+            operationId: SysDept_ListSysDept
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysDeptRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysDeptReply'
+    /v1/dept/list/exclude/{id}:
+        get:
+            tags:
+                - SysDept
+            operationId: SysDept_ExcludeDept
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysDeptReply'
+    /v1/dept/save:
+        post:
+            tags:
+                - SysDept
+            operationId: SysDept_CreateSysDept
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysDeptRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/dept/update:
+        put:
+            tags:
+                - SysDept
+            operationId: SysDept_UpdateSysDept
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysDeptRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/dict/data/delete/{id}:
+        delete:
+            tags:
+                - SysDict
+            operationId: SysDict_DeleteSysDictData
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
+    /v1/dict/data/info/{id}:
+        get:
+            tags:
+                - SysDict
+            operationId: SysDict_GetSysDictData
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysDictDataReply'
+    /v1/dict/data/list:
+        post:
+            tags:
+                - SysDict
+            operationId: SysDict_ListSysDictData
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysDictDataRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysDictDataReply'
+    /v1/dict/data/save:
+        post:
+            tags:
+                - SysDict
+            operationId: SysDict_CreateSysDictData
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysDictDataRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
+    /v1/dict/data/update:
+        put:
+            tags:
+                - SysDict
+            operationId: SysDict_UpdateSysDictData
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysDictDataRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
+    /v1/dict/data/{type}:
+        get:
+            tags:
+                - SysDict
+            operationId: SysDict_SysDictDataType
+            parameters:
+                - name: type
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.SysDictDataTypeReply'
+    /v1/dict/type/delete/{id}:
+        delete:
+            tags:
+                - SysDict
+            operationId: SysDict_DeleteSysDictType
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
+    /v1/dict/type/info/{id}:
+        get:
+            tags:
+                - SysDict
+            operationId: SysDict_GetSysDictType
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysDictTypeReply'
+    /v1/dict/type/list:
+        post:
+            tags:
+                - SysDict
+            operationId: SysDict_ListSysDictType
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysDictTypeRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysDictTypeReply'
+    /v1/dict/type/option/select:
+        get:
+            tags:
+                - SysDict
+            operationId: SysDict_OptionSelectType
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.OptionSelectTypeReply'
+    /v1/dict/type/refresh:
+        get:
+            tags:
+                - SysDict
+            operationId: SysDict_RefreshCacheSysDict
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
+    /v1/dict/type/save:
+        post:
+            tags:
+                - SysDict
+            operationId: SysDict_CreateSysDictType
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysDictTypeRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
+    /v1/dict/type/update:
+        put:
+            tags:
+                - SysDict
+            operationId: SysDict_UpdateSysDictType
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysDictTypeRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
+    /v1/getInfo:
+        get:
+            tags:
+                - Auth
+            operationId: Auth_UserInfo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.UserInfoReply'
+    /v1/getRouters:
+        get:
+            tags:
+                - Auth
+            operationId: Auth_Routers
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.RoutersReply'
+    /v1/login:
+        post:
+            tags:
+                - Auth
+            operationId: Auth_Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.LoginReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.LoginReply'
+    /v1/logout:
+        post:
+            tags:
+                - Auth
+            operationId: Auth_Logout
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.LogoutReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.LogoutReply'
+    /v1/menu/delete/{id}:
+        delete:
+            tags:
+                - SysMenu
+            operationId: SysMenu_DeleteSysMenu
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/menu/info/{id}:
+        get:
+            tags:
+                - SysMenu
+            operationId: SysMenu_GetSysMenu
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysMenuReply'
+    /v1/menu/list:
+        post:
+            tags:
+                - SysMenu
+            operationId: SysMenu_ListSysMenu
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysMenuRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysMenuReply'
+    /v1/menu/menuTree/{roleId}:
+        get:
+            tags:
+                - SysMenu
+            operationId: SysMenu_GetSysRoleMenu
+            parameters:
+                - name: roleId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysRoleMenuReply'
+    /v1/menu/save:
+        post:
+            tags:
+                - SysMenu
+            operationId: SysMenu_CreateSysMenu
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysMenuRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/menu/treeSelect:
+        get:
+            tags:
+                - SysMenu
+            operationId: SysMenu_GetTreeSelect
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetTreeSelectReply'
+    /v1/menu/update:
+        put:
+            tags:
+                - SysMenu
+            operationId: SysMenu_UpdateSysMenu
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysMenuRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/monitor/server:
+        get:
+            tags:
+                - Monitor
+            operationId: Monitor_MonitorServer
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.MonitorServerReply'
+    /v1/post/delete/{id}:
+        delete:
+            tags:
+                - SysPost
+            operationId: SysPost_DeleteSysPost
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/post/info/{id}:
+        get:
+            tags:
+                - SysPost
+            operationId: SysPost_GetSysPost
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysPostReply'
+    /v1/post/list:
+        post:
+            tags:
+                - SysPost
+            operationId: SysPost_ListSysPost
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysPostRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysPostReply'
+    /v1/post/save:
+        post:
+            tags:
+                - SysPost
+            operationId: SysPost_CreateSysPost
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysPostRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/post/update:
+        put:
+            tags:
+                - SysPost
+            operationId: SysPost_UpdateSysPost
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SysPostRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/register:
+        post:
+            tags:
+                - Auth
+            operationId: Auth_Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.RegisterReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.RegisterReply'
+    /v1/role/authUser/allocatedList:
+        post:
+            tags:
+                - SysRole
+            operationId: SysRole_AllocatedList
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.IsAllocatedListRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.IsAllocatedListReply'
+    /v1/role/authUser/cancel:
+        put:
+            tags:
+                - SysRole
+            operationId: SysRole_AuthUserCancel
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.AuthUserCancelRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/role/authUser/cancelAll:
+        put:
+            tags:
+                - SysRole
+            operationId: SysRole_AuthUserCancelAll
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.AuthUserSelectAllRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/role/authUser/selectAll:
+        put:
+            tags:
+                - SysRole
+            operationId: SysRole_AuthUserSelectAll
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.AuthUserSelectAllRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/role/authUser/unallocatedList:
+        post:
+            tags:
+                - SysRole
+            operationId: SysRole_UnAllocatedList
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.IsAllocatedListRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.IsAllocatedListReply'
+    /v1/role/changeStatus:
+        put:
+            tags:
+                - SysRole
+            operationId: SysRole_ChangeStatusSysRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ChangeStatusSysRoleRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/role/dataScope:
+        put:
+            tags:
+                - SysRole
+            operationId: SysRole_DataScopeSysRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.DataScopeSysRoleRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/role/delete/{id}:
+        delete:
+            tags:
+                - SysRole
+            operationId: SysRole_DeleteSysRole
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/role/info/{roleId}:
+        get:
+            tags:
+                - SysRole
+            operationId: SysRole_GetSysRole
+            parameters:
+                - name: roleId
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysRoleReply'
+    /v1/role/list:
+        post:
+            tags:
+                - SysRole
+            operationId: SysRole_ListSysRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysRoleRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysRoleReply'
+    /v1/role/save:
+        post:
+            tags:
+                - SysRole
+            operationId: SysRole_CreateSysRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ModifySysRoleRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/role/update:
+        put:
+            tags:
+                - SysRole
+            operationId: SysRole_UpdateSysRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ModifySysRoleRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.EmptyReply'
+    /v1/user/authRole:
+        put:
+            tags:
+                - SysUser
+            operationId: SysUser_AuthRoleSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.AuthRoleSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.AuthRoleSysUserReply'
+    /v1/user/authRole/{id}:
+        get:
+            tags:
+                - SysUser
+            operationId: SysUser_GetAuthRoleSysUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetAuthRoleSysUserReply'
+    /v1/user/create:
+        post:
+            tags:
+                - SysUser
+            operationId: SysUser_CreateSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.CreateSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.CreateSysUserReply'
+    /v1/user/delete/{id}:
+        delete:
+            tags:
+                - SysUser
+            operationId: SysUser_DeleteSysUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.DeleteSysUserReply'
+    /v1/user/info/{id}:
+        get:
+            tags:
+                - SysUser
+            description: 根据用户ID获取详细信息
+            operationId: SysUser_GetSysUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysUserReply'
+    /v1/user/list:
+        post:
+            tags:
+                - SysUser
+            operationId: SysUser_ListSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ListSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysUserReply'
+    /v1/user/otherInfo:
+        get:
+            tags:
+                - SysUser
+            description: 获取角色以及岗位详细信息
+            operationId: SysUser_GetOtherInfo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetOtherInfoReply'
+    /v1/user/profile:
+        get:
+            tags:
+                - SysUser
+            operationId: SysUser_Profile
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ProfileReply'
+    /v1/user/resetPwd:
+        put:
+            tags:
+                - SysUser
+            operationId: SysUser_ResetPwd
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ResetPwdRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ResetPwdReply'
+    /v1/user/save:
+        post:
+            tags:
+                - SysUser
+            operationId: SysUser_SaveSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SaveSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.SaveSysUserReply'
+    /v1/user/update:
+        put:
+            tags:
+                - SysUser
+            operationId: SysUser_UpdateSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.UpdateSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.UpdateSysUserReply'
+components:
+    schemas:
+        api.system.v1.AuthRoleSysUserRep:
+            type: object
+            properties:
+                roleIds:
+                    type: string
+                userId:
+                    type: string
+        api.system.v1.AuthRoleSysUserReply:
+            type: object
+            properties: {}
+        api.system.v1.AuthUserCancelRep:
+            type: object
+            properties:
+                roleId:
+                    type: string
+                userId:
+                    type: string
+        api.system.v1.AuthUserSelectAllRep:
+            type: object
+            properties:
+                roleId:
+                    type: string
+                userIds:
+                    type: string
+        api.system.v1.CaptchaReply:
+            type: object
+            properties:
+                captchaEnable:
+                    type: boolean
+                img:
+                    type: string
+                uuid:
+                    type: string
+        api.system.v1.ChangeStatusSysRoleRep:
+            type: object
+            properties:
+                roleId:
+                    type: string
+                status:
+                    type: string
+        api.system.v1.ConfigByKeyReply:
+            type: object
+            properties:
+                value:
+                    type: string
+        api.system.v1.ConfigReply:
+            type: object
+            properties:
+                configId:
+                    type: string
+                configName:
+                    type: string
+                configKey:
+                    type: string
+                configValue:
+                    type: string
+                configType:
+                    type: string
+                remark:
+                    type: string
+                createdAt:
+                    type: string
+        api.system.v1.Cpu:
+            type: object
+            properties:
+                cpuNum:
+                    type: integer
+                    format: int32
+                total:
+                    type: string
+                sys:
+                    type: string
+                used:
+                    type: string
+                wait:
+                    type: string
+                free:
+                    type: string
+        api.system.v1.CreateSysConfigRep:
+            type: object
+            properties: {}
+        api.system.v1.CreateSysUserRep:
+            type: object
+            properties: {}
+        api.system.v1.CreateSysUserReply:
+            type: object
+            properties: {}
+        api.system.v1.DataScopeSysRoleRep:
+            type: object
+            properties:
+                roleId:
+                    type: string
+                deptIds:
+                    type: array
+                    items:
+                        type: string
+                dataScope:
+                    type: string
+        api.system.v1.DeleteSysUserReply:
+            type: object
+            properties:
+                userId:
+                    type: string
+        api.system.v1.DeptReply:
+            type: object
+            properties:
+                createdAt:
+                    type: string
+                remark:
+                    type: string
+                deptId:
+                    type: string
+                parentId:
+                    type: string
+                ancestors:
+                    type: string
+                deptName:
+                    type: string
+                orderNum:
+                    type: string
+                leader:
+                    type: string
+                phone:
+                    type: string
+                email:
+                    type: string
+                status:
+                    type: string
+                parentName:
+                    type: string
+                children:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DeptReply'
+            description: 部门通用返回信息
+        api.system.v1.DeptTree:
+            type: object
+            properties:
+                id:
+                    type: string
+                pid:
+                    type: string
+                label:
+                    type: string
+                children:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DeptTree'
+        api.system.v1.DeptTreeReply:
+            type: object
+            properties:
+                dept:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DeptTree'
+        api.system.v1.DictDataReply:
+            type: object
+            properties:
+                dictCode:
+                    type: string
+                dictSort:
+                    type: string
+                dictLabel:
+                    type: string
+                dictValue:
+                    type: string
+                dictType:
+                    type: string
+                cssClass:
+                    type: string
+                listClass:
+                    type: string
+                isDefault:
+                    type: string
+                status:
+                    type: string
+                default:
+                    type: boolean
+                createdAt:
+                    type: string
+                remark:
+                    type: string
+        api.system.v1.DictTypeReply:
+            type: object
+            properties:
+                dictId:
+                    type: string
+                createdAt:
+                    type: string
+                remark:
+                    type: string
+                dictName:
+                    type: string
+                dictType:
+                    type: string
+                status:
+                    type: string
+        api.system.v1.EmptyReply:
+            type: object
+            properties: {}
+        api.system.v1.EmptySysConfigReply:
+            type: object
+            properties: {}
+        api.system.v1.EmptySysDictReply:
+            type: object
+            properties: {}
+        api.system.v1.GetAuthRoleSysUserReply:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.system.v1.UserReply'
+                roles:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleReply'
+        api.system.v1.GetOtherInfoReply:
+            type: object
+            properties:
+                roles:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleReply'
+                posts:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.PostReply'
+        api.system.v1.GetSysDeptReply:
+            type: object
+            properties:
+                dept:
+                    $ref: '#/components/schemas/api.system.v1.DeptReply'
+        api.system.v1.GetSysDictDataReply:
+            type: object
+            properties:
+                dict:
+                    $ref: '#/components/schemas/api.system.v1.DictDataReply'
+        api.system.v1.GetSysDictTypeReply:
+            type: object
+            properties:
+                dict:
+                    $ref: '#/components/schemas/api.system.v1.DictTypeReply'
+        api.system.v1.GetSysMenuReply:
+            type: object
+            properties:
+                menu:
+                    $ref: '#/components/schemas/api.system.v1.MenuReply'
+        api.system.v1.GetSysPostReply:
+            type: object
+            properties:
+                post:
+                    $ref: '#/components/schemas/api.system.v1.PostReply'
+        api.system.v1.GetSysRoleDeptReply:
+            type: object
+            properties:
+                dept:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DeptTree'
+                checkedKeys:
+                    type: array
+                    items:
+                        type: string
+        api.system.v1.GetSysRoleMenuReply:
+            type: object
+            properties:
+                menus:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleMenuReply'
+                checkedKeys:
+                    type: array
+                    items:
+                        type: string
+        api.system.v1.GetSysRoleReply:
+            type: object
+            properties:
+                role:
+                    $ref: '#/components/schemas/api.system.v1.RoleReply'
+        api.system.v1.GetSysUserReply:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.system.v1.UserReply'
+                postIds:
+                    type: array
+                    items:
+                        type: string
+                roleIds:
+                    type: array
+                    items:
+                        type: string
+                roles:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleReply'
+                posts:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.PostReply'
+        api.system.v1.GetTreeSelectReply:
+            type: object
+            properties:
+                menus:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleMenuReply'
+        api.system.v1.IsAllocatedListRep:
+            type: object
+            properties:
+                pageNum:
+                    type: string
+                    description: pageNum
+                pageSize:
+                    type: string
+                    description: 页面大小
+                roleId:
+                    type: string
+        api.system.v1.IsAllocatedListReply:
+            type: object
+            properties:
+                rows:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.UserReply'
+                total:
+                    type: string
+        api.system.v1.Jvm:
+            type: object
+            properties:
+                total:
+                    type: number
+                    format: float
+                max:
+                    type: integer
+                    format: int32
+                free:
+                    type: number
+                    format: float
+                version:
+                    type: string
+                home:
+                    type: string
+                runTime:
+                    type: string
+                inputArgs:
+                    type: string
+                startTime:
+                    type: string
+                used:
+                    type: number
+                    format: float
+                usage:
+                    type: number
+                    format: float
+                name:
+                    type: string
+        api.system.v1.ListSysConfigRep:
+            type: object
+            properties:
+                pageNum:
+                    type: string
+                    description: pageNum
+                pageSize:
+                    type: string
+                    description: 页面大小
+        api.system.v1.ListSysConfigReply:
+            type: object
+            properties:
+                rows:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.ConfigReply'
+                total:
+                    type: string
+        api.system.v1.ListSysDeptRep:
+            type: object
+            properties: {}
+        api.system.v1.ListSysDeptReply:
+            type: object
+            properties:
+                dept:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DeptReply'
+        api.system.v1.ListSysDictDataRep:
+            type: object
+            properties:
+                pageNum:
+                    type: string
+                    description: pageNum
+                pageSize:
+                    type: string
+                    description: 页面大小
+                dictType:
+                    type: string
+        api.system.v1.ListSysDictDataReply:
+            type: object
+            properties:
+                total:
+                    type: string
+                rows:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DictDataReply'
+        api.system.v1.ListSysDictTypeRep:
+            type: object
+            properties:
+                pageNum:
+                    type: string
+                    description: pageNum
+                pageSize:
+                    type: string
+                    description: 页面大小
+        api.system.v1.ListSysDictTypeReply:
+            type: object
+            properties:
+                total:
+                    type: string
+                rows:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DictTypeReply'
+        api.system.v1.ListSysMenuRep:
+            type: object
+            properties: {}
+        api.system.v1.ListSysMenuReply:
+            type: object
+            properties:
+                menus:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.MenuReply'
+        api.system.v1.ListSysPostRep:
+            type: object
+            properties:
+                pageNum:
+                    type: string
+                    description: pageNum
+                pageSize:
+                    type: string
+                    description: 页面大小
+        api.system.v1.ListSysPostReply:
+            type: object
+            properties:
+                total:
+                    type: string
+                rows:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.PostReply'
+        api.system.v1.ListSysRoleRep:
+            type: object
+            properties:
+                pageNum:
+                    type: string
+                    description: pageNum
+                pageSize:
+                    type: string
+                    description: 页面大小
+        api.system.v1.ListSysRoleReply:
+            type: object
+            properties:
+                total:
+                    type: string
+                rows:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleReply'
+        api.system.v1.ListSysUser:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.system.v1.UserReply'
+                dept:
+                    $ref: '#/components/schemas/api.system.v1.DeptReply'
+        api.system.v1.ListSysUserRep:
+            type: object
+            properties:
+                pageNum:
+                    type: string
+                    description: pageNum
+                pageSize:
+                    type: string
+                    description: 页面大小
+                deptId:
+                    type: string
+                userName:
+                    type: string
+                status:
+                    type: string
+                phoneNumber:
+                    type: string
+                params:
+                    $ref: '#/components/schemas/api.system.v1.TimeReq'
+        api.system.v1.ListSysUserReply:
+            type: object
+            properties:
+                total:
+                    type: string
+                rows:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.ListSysUser'
+        api.system.v1.LoginReply:
+            type: object
+            properties:
+                token:
+                    type: string
+        api.system.v1.LoginReq:
+            type: object
+            properties:
+                username:
+                    type: string
+                password:
+                    type: string
+                uuid:
+                    type: string
+                code:
+                    type: string
+        api.system.v1.LogoutReply:
+            type: object
+            properties: {}
+        api.system.v1.LogoutReq:
+            type: object
+            properties: {}
+        api.system.v1.Mem:
+            type: object
+            properties:
+                total:
+                    type: string
+                used:
+                    type: string
+                free:
+                    type: string
+                usage:
+                    type: string
+        api.system.v1.MenuReply:
+            type: object
+            properties:
+                createdAt:
+                    type: string
+                remark:
+                    type: string
+                menuId:
+                    type: string
+                menuName:
+                    type: string
+                parentName:
+                    type: string
+                parentId:
+                    type: string
+                orderNum:
+                    type: string
+                path:
+                    type: string
+                component:
+                    type: string
+                query:
+                    type: string
+                isFrame:
+                    type: string
+                isCache:
+                    type: string
+                menuType:
+                    type: string
+                visible:
+                    type: string
+                status:
+                    type: string
+                perms:
+                    type: string
+                icon:
+                    type: string
+                children:
+                    type: array
+                    items:
+                        type: string
+        api.system.v1.ModifySysRoleRep:
+            type: object
+            properties:
+                remark:
+                    type: string
+                roleId:
+                    type: string
+                roleName:
+                    type: string
+                roleKey:
+                    type: string
+                roleSort:
+                    type: string
+                dataScope:
+                    type: string
+                menuCheckStrictly:
+                    type: boolean
+                deptCheckStrictly:
+                    type: boolean
+                status:
+                    type: string
+                flag:
+                    type: boolean
+                menuIds:
+                    type: array
+                    items:
+                        type: string
+                deptIds:
+                    type: array
+                    items:
+                        type: string
+                deptNames:
+                    type: array
+                    items:
+                        type: string
+                admin:
+                    type: boolean
+        api.system.v1.MonitorServerReply:
+            type: object
+            properties:
+                cpu:
+                    $ref: '#/components/schemas/api.system.v1.Cpu'
+                mem:
+                    $ref: '#/components/schemas/api.system.v1.Mem'
+                jvm:
+                    $ref: '#/components/schemas/api.system.v1.Jvm'
+                sys:
+                    $ref: '#/components/schemas/api.system.v1.Sys'
+                sysFiles:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.SysFiles'
+        api.system.v1.OptionSelectTypeReply:
+            type: object
+            properties:
+                dict:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DictTypeReply'
+        api.system.v1.PostReply:
+            type: object
+            properties:
+                remark:
+                    type: string
+                postId:
+                    type: string
+                postCode:
+                    type: string
+                postName:
+                    type: string
+                postSort:
+                    type: string
+                status:
+                    type: string
+                createdAt:
+                    type: string
+        api.system.v1.ProfileReply:
+            type: object
+            properties:
+                user:
+                    $ref: '#/components/schemas/api.system.v1.UserReply'
+        api.system.v1.RegisterReply:
+            type: object
+            properties: {}
+        api.system.v1.RegisterReq:
+            type: object
+            properties:
+                username:
+                    type: string
+                nickname:
+                    type: string
+                mobile:
+                    type: string
+                password:
+                    type: string
+        api.system.v1.ResetPwdRep:
+            type: object
+            properties:
+                userId:
+                    type: string
+                password:
+                    type: string
+        api.system.v1.ResetPwdReply:
+            type: object
+            properties: {}
+        api.system.v1.RoleMenuReply:
+            type: object
+            properties:
+                id:
+                    type: string
+                pid:
+                    type: string
+                label:
+                    type: string
+                children:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleMenuReply'
+        api.system.v1.RoleReply:
+            type: object
+            properties:
+                remark:
+                    type: string
+                roleId:
+                    type: string
+                roleName:
+                    type: string
+                roleKey:
+                    type: string
+                roleSort:
+                    type: string
+                dataScope:
+                    type: string
+                menuCheckStrictly:
+                    type: boolean
+                deptCheckStrictly:
+                    type: boolean
+                status:
+                    type: string
+                flag:
+                    type: boolean
+                menuIds:
+                    type: array
+                    items:
+                        type: string
+                deptIds:
+                    type: array
+                    items:
+                        type: string
+                deptNames:
+                    type: array
+                    items:
+                        type: string
+                admin:
+                    type: boolean
+                createdAt:
+                    type: string
+            description: 角色通用返回信息
+        api.system.v1.Router:
+            type: object
+            properties:
+                name:
+                    type: string
+                path:
+                    type: string
+                redirect:
+                    type: string
+                component:
+                    type: string
+                meta:
+                    $ref: '#/components/schemas/api.system.v1.Router_Meta'
+                children:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.Router'
+                menuId:
+                    type: string
+                parentId:
+                    type: string
+        api.system.v1.Router_Meta:
+            type: object
+            properties:
+                title:
+                    type: string
+                icon:
+                    type: string
+                noCache:
+                    type: boolean
+                link:
+                    type: string
+        api.system.v1.RoutersReply:
+            type: object
+            properties:
+                routers:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.Router'
+        api.system.v1.SaveSysUserRep:
+            type: object
+            properties:
+                deptId:
+                    type: string
+                userName:
+                    type: string
+                nickName:
+                    type: string
+                password:
+                    type: string
+                phoneNumber:
+                    type: string
+                email:
+                    type: string
+                sex:
+                    type: string
+                status:
+                    type: string
+                remark:
+                    type: string
+                postIds:
+                    type: array
+                    items:
+                        type: string
+                roleIds:
+                    type: array
+                    items:
+                        type: string
+        api.system.v1.SaveSysUserReply:
+            type: object
+            properties: {}
+        api.system.v1.Sys:
+            type: object
+            properties:
+                computerName:
+                    type: string
+                computerIp:
+                    type: string
+                userDir:
+                    type: string
+                osName:
+                    type: string
+                osArch:
+                    type: string
+        api.system.v1.SysDeptRep:
+            type: object
+            properties:
+                deptId:
+                    type: string
+                parentId:
+                    type: string
+                deptName:
+                    type: string
+                orderNum:
+                    type: string
+                leader:
+                    type: string
+                phone:
+                    type: string
+                email:
+                    type: string
+                status:
+                    type: string
+        api.system.v1.SysDictDataRep:
+            type: object
+            properties:
+                dictCode:
+                    type: string
+                dictSort:
+                    type: string
+                dictLabel:
+                    type: string
+                dictValue:
+                    type: string
+                dictType:
+                    type: string
+                cssClass:
+                    type: string
+                listClass:
+                    type: string
+                isDefault:
+                    type: string
+                status:
+                    type: string
+                default:
+                    type: boolean
+                createAt:
+                    type: string
+                remark:
+                    type: string
+        api.system.v1.SysDictDataTypeReply:
+            type: object
+            properties:
+                dict:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.DictDataReply'
+        api.system.v1.SysDictTypeRep:
+            type: object
+            properties:
+                dictId:
+                    type: string
+                dictName:
+                    type: string
+                dictType:
+                    type: string
+                status:
+                    type: string
+                remark:
+                    type: string
+        api.system.v1.SysFiles:
+            type: object
+            properties:
+                dirName:
+                    type: string
+                sysTypeName:
+                    type: string
+                typeName:
+                    type: string
+                total:
+                    type: string
+                free:
+                    type: string
+                used:
+                    type: string
+                usage:
+                    type: string
+        api.system.v1.SysMenuRep:
+            type: object
+            properties:
+                menuId:
+                    type: string
+                parentId:
+                    type: string
+                menuName:
+                    type: string
+                icon:
+                    type: string
+                menuType:
+                    type: string
+                orderNum:
+                    type: string
+                isFrame:
+                    type: string
+                isCache:
+                    type: string
+                visible:
+                    type: string
+                status:
+                    type: string
+                path:
+                    type: string
+                component:
+                    type: string
+                perms:
+                    type: string
+                query:
+                    type: string
+        api.system.v1.SysPostRep:
+            type: object
+            properties:
+                postId:
+                    type: string
+                postCode:
+                    type: string
+                postName:
+                    type: string
+                postSort:
+                    type: string
+                status:
+                    type: string
+                remark:
+                    type: string
+        api.system.v1.TimeReq:
+            type: object
+            properties:
+                beginTime:
+                    type: string
+                endTime:
+                    type: string
+        api.system.v1.UpdateSysUserRep:
+            type: object
+            properties:
+                userId:
+                    type: string
+                deptId:
+                    type: string
+                userName:
+                    type: string
+                nickName:
+                    type: string
+                password:
+                    type: string
+                phoneNumber:
+                    type: string
+                email:
+                    type: string
+                sex:
+                    type: string
+                status:
+                    type: string
+                remark:
+                    type: string
+                postIds:
+                    type: array
+                    items:
+                        type: string
+                roleIds:
+                    type: array
+                    items:
+                        type: string
+        api.system.v1.UpdateSysUserReply:
+            type: object
+            properties: {}
+        api.system.v1.UserInfoReply:
+            type: object
+            properties:
+                permissions:
+                    type: array
+                    items:
+                        type: string
+                roles:
+                    type: array
+                    items:
+                        type: string
+                user:
+                    $ref: '#/components/schemas/api.system.v1.UserReply'
+        api.system.v1.UserReply:
+            type: object
+            properties:
+                remark:
+                    type: string
+                userId:
+                    type: string
+                deptId:
+                    type: string
+                userName:
+                    type: string
+                nickName:
+                    type: string
+                email:
+                    type: string
+                phoneNumber:
+                    type: string
+                sex:
+                    type: string
+                avatar:
+                    type: string
+                password:
+                    type: string
+                status:
+                    type: string
+                delFlag:
+                    type: string
+                loginIp:
+                    type: string
+                loginDate:
+                    type: string
+                dept:
+                    $ref: '#/components/schemas/api.system.v1.DeptReply'
+                roleIds:
+                    type: array
+                    items:
+                        type: string
+                postIds:
+                    type: array
+                    items:
+                        type: string
+                admin:
+                    type: boolean
+                roles:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.system.v1.RoleReply'
+                createdAt:
+                    type: string
+            description: 用户通用返回信息
+tags:
+    - name: Auth
+    - name: Monitor
+    - name: SysConfig
+    - name: SysDept
+    - name: SysDict
+    - name: SysMenu
+    - name: SysPost
+    - name: SysRole
+    - name: SysUser
