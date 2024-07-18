@@ -5,7 +5,7 @@ import (
 	"errors"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/mojocn/base64Captcha"
-	pb "micro/api/api/system/v1"
+	pb "micro/api/system/v1"
 	"micro/internal/biz"
 	"micro/internal/pkg"
 	"micro/internal/pkg/constants"
@@ -61,6 +61,7 @@ func (s *AuthService) Register(ctx context.Context, req *pb.RegisterReq) (*pb.Re
 	return &pb.RegisterReply{}, nil
 }
 func (s *AuthService) Captcha(ctx context.Context, req *pb.CaptchaReq) (*pb.CaptchaReply, error) {
+	str := "data:image/gif;base64,"
 	driver := base64Captcha.NewDriverDigit(80, 250, 4, 0.7, 80)
 	cp := base64Captcha.NewCaptcha(driver, Store)
 	id, b64s, answer, err := cp.Generate()
@@ -74,7 +75,7 @@ func (s *AuthService) Captcha(ctx context.Context, req *pb.CaptchaReq) (*pb.Capt
 	}
 
 	return &pb.CaptchaReply{
-		Img:           b64s,
+		Img:           b64s[len(str):],
 		Uuid:          id,
 		CaptchaEnable: true,
 	}, nil
@@ -94,5 +95,5 @@ func (s *AuthService) Routers(ctx context.Context, req *pb.RoutersReq) (*pb.Rout
 	if err != nil {
 		return nil, err
 	}
-	return &pb.RoutersReply{Routers: menus}, nil
+	return &pb.RoutersReply{Data: menus}, nil
 }

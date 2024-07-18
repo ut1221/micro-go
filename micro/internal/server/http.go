@@ -7,7 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/validate"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"golang.org/x/net/context"
-	v1 "micro/api/api/system/v1"
+	v1 "micro/api/system/v1"
 	"micro/internal/conf"
 	"micro/internal/pkg"
 	"micro/internal/pkg/middleware"
@@ -42,7 +42,7 @@ func NewHTTPServer(c *conf.Server, logger log.Logger,
 	if c.Http.Timeout != nil {
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
-	opts = append(opts, http.ResponseEncoder(pkg.EncoderResponse()))
+	//opts = append(opts, http.ResponseEncoder(pkg.EncoderResponse()))
 	opts = append(opts, http.ErrorEncoder(pkg.EncoderError()))
 	srv := http.NewServer(opts...)
 	v1.RegisterAuthHTTPServer(srv, as)

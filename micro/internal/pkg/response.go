@@ -10,9 +10,9 @@ import (
 
 // httpResponse 响应结构体
 type httpResponse struct {
-	Code    int         `json:"code"`
-	Message string      `json:"msg"`
-	Data    interface{} `json:"data"`
+	Code    int                    `json:"code"`
+	Message string                 `json:"msg"`
+	Data    map[string]interface{} `json:"data,omitempty"`
 }
 
 // EncoderError 错误响应封装
@@ -22,14 +22,12 @@ func EncoderError() http.EncodeErrorFunc {
 			return
 		}
 		se := &httpResponse{}
-		gs, ok := status.FromError(err)
-		if !ok {
-			se = &httpResponse{Code: stdhttp.StatusInternalServerError}
-		}
-		se = &httpResponse{
-			Code:    httpstatus.FromGRPCCode(gs.Code()),
-			Message: gs.Message(),
-			Data:    nil,
+		if gs, ok := status.FromError(err); ok {
+			se.Code = httpstatus.FromGRPCCode(gs.Code())
+			se.Message = gs.Message()
+		} else {
+			se.Code = stdhttp.StatusInternalServerError
+			se.Message = gs.Message()
 		}
 		codec, _ := http.CodecForRequest(r, "Accept")
 		body, err := codec.Marshal(se)
@@ -49,10 +47,15 @@ func EncoderResponse() http.EncodeResponseFunc {
 		if i == nil {
 			return nil
 		}
+		// 假设传入的 `i` 是一个 map 包含所有必要的数据
+		dataMap, ok := i.(map[string]interface{})
+		if !ok {
+			return stdhttp.ErrContentLength
+		}
 		resp := &httpResponse{
 			Code:    stdhttp.StatusOK,
 			Message: "",
-			Data:    i,
+			Data:    dataMap,
 		}
 		codec := encoding.GetCodec("json")
 		data, err := codec.Marshal(resp)

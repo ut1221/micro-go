@@ -3,43 +3,43 @@ syntax = "proto3";
 package api.system.v1;
 
 import "google/api/annotations.proto";
-import "api/system/v1/base.proto";
+import "system/v1/base.proto";
 
-option go_package = "micro/api/api/system/v1;v1";
+option go_package = "micro/api/system/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.system.v1";
 
 service Auth {
   rpc Logout (LogoutReq) returns (LogoutReply){
     option (google.api.http) = {
-      post: "/v1/logout",
+      post: "/logout",
       body: "*"
     };
   };
   rpc Captcha (CaptchaReq) returns (CaptchaReply) {
     option (google.api.http) = {
-      get: "/v1/captchaImage"
+      get: "/captchaImage"
     };
   }
   rpc Login (LoginReq) returns (LoginReply){
     option (google.api.http) = {
-      post: "/v1/login",
+      post: "/login",
       body: "*"
     };
   };
   rpc UserInfo (UserInfoReq) returns (UserInfoReply) {
     option (google.api.http) = {
-      get: "/v1/getInfo",
+      get: "/getInfo",
     };
   }
   rpc Routers (RoutersReq) returns (RoutersReply) {
     option (google.api.http) = {
-      get: "/v1/getRouters",
+      get: "/getRouters",
     };
   }
   rpc Register (RegisterReq) returns (RegisterReply){
     option (google.api.http) = {
-      post: "/v1/register",
+      post: "/register",
       body: "*"
     };
   };
@@ -72,7 +72,7 @@ message UserInfoReply {
 
 message RoutersReq {}
 message RoutersReply {
-  repeated Router routers = 1;
+  repeated Router data = 1;
 }
 message Router {
   string name = 1;

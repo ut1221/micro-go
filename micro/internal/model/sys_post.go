@@ -2,7 +2,7 @@ package model
 
 import (
 	"gorm.io/gorm"
-	v1 "micro/api/api/system/v1"
+	v1 "micro/api/system/v1"
 	"micro/internal/pkg"
 	"time"
 )

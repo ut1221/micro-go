@@ -4,9 +4,9 @@ package api.system.v1;
 
 import "google/api/annotations.proto";
 import "validate/validate.proto";
-import "api/system/v1/base.proto";
+import "system/v1/base.proto";
 
-option go_package = "micro/api/api/system/v1;v1";
+option go_package = "micro/api/system/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.system.v1";
 

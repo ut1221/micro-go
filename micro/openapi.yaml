@@ -6,7 +6,7 @@ info:
     title: ""
     version: 0.0.1
 paths:
-    /v1/captchaImage:
+    /captchaImage:
         get:
             tags:
                 - Auth
@@ -18,6 +18,84 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.CaptchaReply'
+    /getInfo:
+        get:
+            tags:
+                - Auth
+            operationId: Auth_UserInfo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.UserInfoReply'
+    /getRouters:
+        get:
+            tags:
+                - Auth
+            operationId: Auth_Routers
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.RoutersReply'
+    /login:
+        post:
+            tags:
+                - Auth
+            operationId: Auth_Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.LoginReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.LoginReply'
+    /logout:
+        post:
+            tags:
+                - Auth
+            operationId: Auth_Logout
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.LogoutReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.LogoutReply'
+    /register:
+        post:
+            tags:
+                - Auth
+            operationId: Auth_Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.RegisterReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.RegisterReply'
     /v1/config/configKey/{key}:
         get:
             tags:
@@ -432,66 +510,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
-    /v1/getInfo:
-        get:
-            tags:
-                - Auth
-            operationId: Auth_UserInfo
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.UserInfoReply'
-    /v1/getRouters:
-        get:
-            tags:
-                - Auth
-            operationId: Auth_Routers
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.RoutersReply'
-    /v1/login:
-        post:
-            tags:
-                - Auth
-            operationId: Auth_Login
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.LoginReq'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.LoginReply'
-    /v1/logout:
-        post:
-            tags:
-                - Auth
-            operationId: Auth_Logout
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.LogoutReq'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.LogoutReply'
     /v1/menu/delete/{id}:
         delete:
             tags:
@@ -714,24 +732,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.EmptyReply'
-    /v1/register:
-        post:
-            tags:
-                - Auth
-            operationId: Auth_Register
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.RegisterReq'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.RegisterReply'
     /v1/role/authUser/allocatedList:
         post:
             tags:
@@ -1908,7 +1908,7 @@ components:
         api.system.v1.RoutersReply:
             type: object
             properties:
-                routers:
+                data:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.system.v1.Router'

@@ -5,7 +5,7 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"micro/internal/biz"
 
-	pb "micro/api/api/system/v1"
+	pb "micro/api/system/v1"
 )
 
 type SysConfigService struct {
