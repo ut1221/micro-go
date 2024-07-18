@@ -33,7 +33,7 @@ func RegisterSysConfigHTTPServer(s *http.Server, srv SysConfigHTTPServer) {
 	r := s.Route("/")
 	r.POST("/v1/config/create", _SysConfig_CreateSysConfig0_HTTP_Handler(srv))
 	r.POST("/v1/config/list", _SysConfig_ListSysConfig0_HTTP_Handler(srv))
-	r.GET("/v1/config/configKey/{key}", _SysConfig_ConfigByKey0_HTTP_Handler(srv))
+	r.GET("/system/config/configKey/{key}", _SysConfig_ConfigByKey0_HTTP_Handler(srv))
 }
 
 func _SysConfig_CreateSysConfig0_HTTP_Handler(srv SysConfigHTTPServer) func(ctx http.Context) error {
@@ -118,7 +118,7 @@ func NewSysConfigHTTPClient(client *http.Client) SysConfigHTTPClient {
 
 func (c *SysConfigHTTPClientImpl) ConfigByKey(ctx context.Context, in *ConfigByKeyReq, opts ...http.CallOption) (*ConfigByKeyReply, error) {
 	var out ConfigByKeyReply
-	pattern := "/v1/config/configKey/{key}"
+	pattern := "/system/config/configKey/{key}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysConfigConfigByKey))
 	opts = append(opts, http.PathTemplate(pattern))

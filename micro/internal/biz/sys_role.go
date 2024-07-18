@@ -179,7 +179,7 @@ func (uc *SysRoleUsecase) IsAllocatedList(ctx context.Context, req *v1.IsAllocat
 			UserName:    bizUser.UserName,
 			NickName:    bizUser.NickName,
 			Email:       bizUser.Email,
-			PhoneNumber: bizUser.PhoneNumber,
+			Phonenumber: bizUser.PhoneNumber,
 			Sex:         bizUser.Sex,
 			Avatar:      bizUser.Avatar,
 			Password:    bizUser.Password,
@@ -188,7 +188,7 @@ func (uc *SysRoleUsecase) IsAllocatedList(ctx context.Context, req *v1.IsAllocat
 			LoginDate:   bizUser.LoginDate.Format("2006-01-02 15:04:05"),
 			Remark:      bizUser.Remark,
 			Dept:        bizUser.Dept.BizToV1(),
-			CreatedAt:   bizUser.CreatedAt.Format("2006-01-02 15:04:05"),
+			CreateTime:  bizUser.CreatedAt.Format("2006-01-02 15:04:05"),
 		}
 		users = append(users, user)
 	}

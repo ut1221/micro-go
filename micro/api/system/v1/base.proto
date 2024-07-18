@@ -16,7 +16,7 @@ message UserReply {
   string userName = 8;
   string nickName = 9;
   string email = 10;
-  string phoneNumber = 11;
+  string phonenumber = 11;
   string sex = 12;
   string avatar = 13;
   string password = 14;
@@ -29,7 +29,7 @@ message UserReply {
   repeated string postIds = 21;
   bool admin = 23;
   repeated RoleReply roles = 24;
-  string createdAt = 25;
+  string createTime = 25;
 }
 
 //部门通用返回信息
@@ -81,4 +81,11 @@ message PostReply {
 message TimeReq {
   string beginTime = 1;
   string endTime = 2;
+}
+
+message DeptTree {
+  string id = 1;
+  string pid = 2;
+  string label = 3;
+  repeated DeptTree children = 4;
 }

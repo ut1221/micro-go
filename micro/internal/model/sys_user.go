@@ -95,7 +95,7 @@ func (user *BizSysUser) BizToV1() *v1.UserReply {
 		UserName:    user.UserName,
 		NickName:    user.NickName,
 		Email:       user.Email,
-		PhoneNumber: user.PhoneNumber,
+		Phonenumber: user.PhoneNumber,
 		Sex:         user.Sex,
 		Avatar:      user.Avatar,
 		Password:    user.Password,
@@ -103,6 +103,6 @@ func (user *BizSysUser) BizToV1() *v1.UserReply {
 		LoginIp:     user.LoginIP,
 		LoginDate:   user.LoginDate.Format("2006-01-02 15:04:05"),
 		Remark:      user.Remark,
-		CreatedAt:   user.CreatedAt.Format("2006-01-02 15:04:05"),
+		CreateTime:  user.CreatedAt.Format("2006-01-02 15:04:05"),
 	}
 }

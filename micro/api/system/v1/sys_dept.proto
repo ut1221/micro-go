@@ -44,11 +44,7 @@ service SysDept {
       get: "/v1/dept/list/exclude/{id}",
     };
   };
-  rpc DeptTree (DeptTreeReq) returns (DeptTreeReply){
-    option (google.api.http) = {
-      get: "/v1/dept/deptTree",
-    };
-  };
+
   rpc GetSysRoleDept (GetSysRoleDeptRep) returns (GetSysRoleDeptReply){
     option (google.api.http) = {
       get: "/v1/dept/deptTreeByRoleId/{roleId}",
@@ -78,16 +74,7 @@ message GetSysDeptReply {
 message ExcludeDeptRep {
   string id = 1 [(validate.rules).string.min_len = 1];
 }
-message DeptTreeReq {}
-message DeptTreeReply {
-  repeated DeptTree dept = 1;
-}
-message DeptTree {
-  string id = 1;
-  string pid = 2;
-  string label = 3;
-  repeated DeptTree children = 4;
-}
+
 message ListSysDeptRep {}
 message ListSysDeptReply {
   repeated DeptReply dept = 1;

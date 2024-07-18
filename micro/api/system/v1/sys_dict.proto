@@ -13,7 +13,7 @@ option java_package = "api.system.v1";
 service SysDict {
   rpc SysDictDataType (SysDictDataTypeReq) returns (SysDictDataTypeReply) {
     option (google.api.http) = {
-      get: "/v1/dict/data/{type}"
+      get: "/system/dict/data/type/{type}"
     };
   };
   rpc CreateSysDictType (SysDictTypeRep) returns (EmptySysDictReply){

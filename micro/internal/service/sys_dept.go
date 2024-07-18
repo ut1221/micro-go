@@ -18,16 +18,6 @@ func NewSysDeptService(uc *biz.SysDeptUsecase, logger log.Logger) *SysDeptServic
 	return &SysDeptService{uc: uc, log: log.NewHelper(logger)}
 }
 
-func (s *SysDeptService) DeptTree(ctx context.Context, req *v1.DeptTreeReq) (*v1.DeptTreeReply, error) {
-	tree, err := s.uc.GetDeptTree(ctx)
-	if err != nil {
-		return nil, err
-	}
-	return &v1.DeptTreeReply{
-		Dept: tree,
-	}, nil
-}
-
 func (s *SysDeptService) CreateSysDept(ctx context.Context, req *v1.SysDeptRep) (*v1.EmptyReply, error) {
 	req.DeptId = pkg.GetID()
 	return s.uc.Sava(ctx, req)

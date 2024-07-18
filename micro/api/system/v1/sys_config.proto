@@ -27,7 +27,7 @@ service SysConfig {
   };
   rpc ConfigByKey (ConfigByKeyReq) returns (ConfigByKeyReply){
     option (google.api.http) = {
-      get: "/v1/config/configKey/{key}",
+      get: "/system/config/configKey/{key}",
     };
   };
 }

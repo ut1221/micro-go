@@ -58,16 +58,15 @@ func (uc *SysUserUsecase) GetPageSet(ctx context.Context, req *v1.ListSysUserRep
 	if err != nil {
 		return nil, err
 	}
-	var users []*v1.ListSysUser
+	var users []*v1.UserReply
 	for _, user := range bizUsers {
-		var listUser v1.ListSysUser
-		user := &v1.UserReply{
+		u := &v1.UserReply{
 			UserId:      user.UserID,
 			DeptId:      user.DeptID,
 			UserName:    user.UserName,
 			NickName:    user.NickName,
 			Email:       user.Email,
-			PhoneNumber: user.PhoneNumber,
+			Phonenumber: user.PhoneNumber,
 			Sex:         user.Sex,
 			Avatar:      user.Avatar,
 			Password:    user.Password,
@@ -76,12 +75,11 @@ func (uc *SysUserUsecase) GetPageSet(ctx context.Context, req *v1.ListSysUserRep
 			LoginDate:   user.LoginDate.Format("2006-01-02 15:04:05"),
 			Remark:      user.Remark,
 			Dept:        user.Dept.BizToV1(),
-			CreatedAt:   user.CreatedAt.Format("2006-01-02 15:04:05"),
+			CreateTime:  user.CreatedAt.Format("2006-01-02 15:04:05"),
 		}
-		listUser.User = user
-		users = append(users, &listUser)
+		users = append(users, u)
 	}
-	return &v1.ListSysUserReply{Rows: users, Total: total}, nil
+	return &v1.ListSysUserReply{Rows: users, Total: int32(total)}, nil
 }
 
 func (uc *SysUserUsecase) Save(ctx context.Context, user *model.BizSysUser) error {

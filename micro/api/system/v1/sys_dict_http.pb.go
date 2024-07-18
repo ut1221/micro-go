@@ -51,7 +51,7 @@ type SysDictHTTPServer interface {
 
 func RegisterSysDictHTTPServer(s *http.Server, srv SysDictHTTPServer) {
 	r := s.Route("/")
-	r.GET("/v1/dict/data/{type}", _SysDict_SysDictDataType0_HTTP_Handler(srv))
+	r.GET("/system/dict/data/type/{type}", _SysDict_SysDictDataType0_HTTP_Handler(srv))
 	r.POST("/v1/dict/type/save", _SysDict_CreateSysDictType0_HTTP_Handler(srv))
 	r.PUT("/v1/dict/type/update", _SysDict_UpdateSysDictType0_HTTP_Handler(srv))
 	r.DELETE("/v1/dict/type/delete/{id}", _SysDict_DeleteSysDictType0_HTTP_Handler(srv))
@@ -502,7 +502,7 @@ func (c *SysDictHTTPClientImpl) RefreshCacheSysDict(ctx context.Context, in *Cac
 
 func (c *SysDictHTTPClientImpl) SysDictDataType(ctx context.Context, in *SysDictDataTypeReq, opts ...http.CallOption) (*SysDictDataTypeReply, error) {
 	var out SysDictDataTypeReply
-	pattern := "/v1/dict/data/{type}"
+	pattern := "/system/dict/data/type/{type}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysDictSysDictDataType))
 	opts = append(opts, http.PathTemplate(pattern))

@@ -24,9 +24,10 @@ const (
 	SysUser_ResetPwd_FullMethodName           = "/api.system.v1.SysUser/ResetPwd"
 	SysUser_DeleteSysUser_FullMethodName      = "/api.system.v1.SysUser/DeleteSysUser"
 	SysUser_SaveSysUser_FullMethodName        = "/api.system.v1.SysUser/SaveSysUser"
+	SysUser_ListSysUser_FullMethodName        = "/api.system.v1.SysUser/ListSysUser"
+	SysUser_DeptTree_FullMethodName           = "/api.system.v1.SysUser/DeptTree"
 	SysUser_GetSysUser_FullMethodName         = "/api.system.v1.SysUser/GetSysUser"
 	SysUser_GetOtherInfo_FullMethodName       = "/api.system.v1.SysUser/GetOtherInfo"
-	SysUser_ListSysUser_FullMethodName        = "/api.system.v1.SysUser/ListSysUser"
 	SysUser_Profile_FullMethodName            = "/api.system.v1.SysUser/Profile"
 	SysUser_GetAuthRoleSysUser_FullMethodName = "/api.system.v1.SysUser/GetAuthRoleSysUser"
 	SysUser_AuthRoleSysUser_FullMethodName    = "/api.system.v1.SysUser/AuthRoleSysUser"
@@ -41,11 +42,13 @@ type SysUserClient interface {
 	ResetPwd(ctx context.Context, in *ResetPwdRep, opts ...grpc.CallOption) (*ResetPwdReply, error)
 	DeleteSysUser(ctx context.Context, in *DeleteSysUserRep, opts ...grpc.CallOption) (*DeleteSysUserReply, error)
 	SaveSysUser(ctx context.Context, in *SaveSysUserRep, opts ...grpc.CallOption) (*SaveSysUserReply, error)
+	ListSysUser(ctx context.Context, in *ListSysUserRep, opts ...grpc.CallOption) (*ListSysUserReply, error)
+	// 获取部门树
+	DeptTree(ctx context.Context, in *DeptTreeReq, opts ...grpc.CallOption) (*DeptTreeReply, error)
 	// 根据用户ID获取详细信息
 	GetSysUser(ctx context.Context, in *GetSysUserRep, opts ...grpc.CallOption) (*GetSysUserReply, error)
 	// 获取角色以及岗位详细信息
 	GetOtherInfo(ctx context.Context, in *GetOtherInfoRep, opts ...grpc.CallOption) (*GetOtherInfoReply, error)
-	ListSysUser(ctx context.Context, in *ListSysUserRep, opts ...grpc.CallOption) (*ListSysUserReply, error)
 	Profile(ctx context.Context, in *ProfileRep, opts ...grpc.CallOption) (*ProfileReply, error)
 	GetAuthRoleSysUser(ctx context.Context, in *GetAuthRoleSysUserRep, opts ...grpc.CallOption) (*GetAuthRoleSysUserReply, error)
 	AuthRoleSysUser(ctx context.Context, in *AuthRoleSysUserRep, opts ...grpc.CallOption) (*AuthRoleSysUserReply, error)
@@ -104,6 +107,24 @@ func (c *sysUserClient) SaveSysUser(ctx context.Context, in *SaveSysUserRep, opt
 	return out, nil
 }
 
+func (c *sysUserClient) ListSysUser(ctx context.Context, in *ListSysUserRep, opts ...grpc.CallOption) (*ListSysUserReply, error) {
+	out := new(ListSysUserReply)
+	err := c.cc.Invoke(ctx, SysUser_ListSysUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *sysUserClient) DeptTree(ctx context.Context, in *DeptTreeReq, opts ...grpc.CallOption) (*DeptTreeReply, error) {
+	out := new(DeptTreeReply)
+	err := c.cc.Invoke(ctx, SysUser_DeptTree_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *sysUserClient) GetSysUser(ctx context.Context, in *GetSysUserRep, opts ...grpc.CallOption) (*GetSysUserReply, error) {
 	out := new(GetSysUserReply)
 	err := c.cc.Invoke(ctx, SysUser_GetSysUser_FullMethodName, in, out, opts...)
@@ -116,15 +137,6 @@ func (c *sysUserClient) GetSysUser(ctx context.Context, in *GetSysUserRep, opts 
 func (c *sysUserClient) GetOtherInfo(ctx context.Context, in *GetOtherInfoRep, opts ...grpc.CallOption) (*GetOtherInfoReply, error) {
 	out := new(GetOtherInfoReply)
 	err := c.cc.Invoke(ctx, SysUser_GetOtherInfo_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *sysUserClient) ListSysUser(ctx context.Context, in *ListSysUserRep, opts ...grpc.CallOption) (*ListSysUserReply, error) {
-	out := new(ListSysUserReply)
-	err := c.cc.Invoke(ctx, SysUser_ListSysUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,11 +179,13 @@ type SysUserServer interface {
 	ResetPwd(context.Context, *ResetPwdRep) (*ResetPwdReply, error)
 	DeleteSysUser(context.Context, *DeleteSysUserRep) (*DeleteSysUserReply, error)
 	SaveSysUser(context.Context, *SaveSysUserRep) (*SaveSysUserReply, error)
+	ListSysUser(context.Context, *ListSysUserRep) (*ListSysUserReply, error)
+	// 获取部门树
+	DeptTree(context.Context, *DeptTreeReq) (*DeptTreeReply, error)
 	// 根据用户ID获取详细信息
 	GetSysUser(context.Context, *GetSysUserRep) (*GetSysUserReply, error)
 	// 获取角色以及岗位详细信息
 	GetOtherInfo(context.Context, *GetOtherInfoRep) (*GetOtherInfoReply, error)
-	ListSysUser(context.Context, *ListSysUserRep) (*ListSysUserReply, error)
 	Profile(context.Context, *ProfileRep) (*ProfileReply, error)
 	GetAuthRoleSysUser(context.Context, *GetAuthRoleSysUserRep) (*GetAuthRoleSysUserReply, error)
 	AuthRoleSysUser(context.Context, *AuthRoleSysUserRep) (*AuthRoleSysUserReply, error)
@@ -197,14 +211,17 @@ func (UnimplementedSysUserServer) DeleteSysUser(context.Context, *DeleteSysUserR
 func (UnimplementedSysUserServer) SaveSysUser(context.Context, *SaveSysUserRep) (*SaveSysUserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveSysUser not implemented")
 }
+func (UnimplementedSysUserServer) ListSysUser(context.Context, *ListSysUserRep) (*ListSysUserReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSysUser not implemented")
+}
+func (UnimplementedSysUserServer) DeptTree(context.Context, *DeptTreeReq) (*DeptTreeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeptTree not implemented")
+}
 func (UnimplementedSysUserServer) GetSysUser(context.Context, *GetSysUserRep) (*GetSysUserReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSysUser not implemented")
 }
 func (UnimplementedSysUserServer) GetOtherInfo(context.Context, *GetOtherInfoRep) (*GetOtherInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOtherInfo not implemented")
-}
-func (UnimplementedSysUserServer) ListSysUser(context.Context, *ListSysUserRep) (*ListSysUserReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListSysUser not implemented")
 }
 func (UnimplementedSysUserServer) Profile(context.Context, *ProfileRep) (*ProfileReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Profile not implemented")
@@ -318,6 +335,42 @@ func _SysUser_SaveSysUser_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SysUser_ListSysUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListSysUserRep)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysUserServer).ListSysUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SysUser_ListSysUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysUserServer).ListSysUser(ctx, req.(*ListSysUserRep))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SysUser_DeptTree_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeptTreeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SysUserServer).DeptTree(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SysUser_DeptTree_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SysUserServer).DeptTree(ctx, req.(*DeptTreeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SysUser_GetSysUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSysUserRep)
 	if err := dec(in); err != nil {
@@ -350,24 +403,6 @@ func _SysUser_GetOtherInfo_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SysUserServer).GetOtherInfo(ctx, req.(*GetOtherInfoRep))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SysUser_ListSysUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListSysUserRep)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SysUserServer).ListSysUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: SysUser_ListSysUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SysUserServer).ListSysUser(ctx, req.(*ListSysUserRep))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -454,16 +489,20 @@ var SysUser_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SysUser_SaveSysUser_Handler,
 		},
 		{
+			MethodName: "ListSysUser",
+			Handler:    _SysUser_ListSysUser_Handler,
+		},
+		{
+			MethodName: "DeptTree",
+			Handler:    _SysUser_DeptTree_Handler,
+		},
+		{
 			MethodName: "GetSysUser",
 			Handler:    _SysUser_GetSysUser_Handler,
 		},
 		{
 			MethodName: "GetOtherInfo",
 			Handler:    _SysUser_GetOtherInfo_Handler,
-		},
-		{
-			MethodName: "ListSysUser",
-			Handler:    _SysUser_ListSysUser_Handler,
 		},
 		{
 			MethodName: "Profile",

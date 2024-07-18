@@ -14,11 +14,12 @@ type SysUserService struct {
 	uc  *biz.SysUserUsecase
 	rc  *biz.SysRoleUsecase
 	pc  *biz.SysPostUsecase
+	dc  *biz.SysDeptUsecase
 	log *log.Helper
 }
 
-func NewSysUserService(uc *biz.SysUserUsecase, rc *biz.SysRoleUsecase, pc *biz.SysPostUsecase, logger log.Logger) *SysUserService {
-	return &SysUserService{uc: uc, rc: rc, pc: pc, log: log.NewHelper(logger)}
+func NewSysUserService(uc *biz.SysUserUsecase, rc *biz.SysRoleUsecase, pc *biz.SysPostUsecase, dc *biz.SysDeptUsecase, logger log.Logger) *SysUserService {
+	return &SysUserService{uc: uc, rc: rc, pc: pc, dc: dc, log: log.NewHelper(logger)}
 }
 
 func (s *SysUserService) CreateSysUser(ctx context.Context, req *v1.CreateSysUserRep) (*v1.CreateSysUserReply, error) {
@@ -74,6 +75,16 @@ func (s *SysUserService) DeleteSysUser(ctx context.Context, req *v1.DeleteSysUse
 	}
 	return &v1.DeleteSysUserReply{}, nil
 }
+func (s *SysUserService) DeptTree(ctx context.Context, req *v1.DeptTreeReq) (*v1.DeptTreeReply, error) {
+	tree, err := s.dc.GetDeptTree(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return &v1.DeptTreeReply{
+		Data: tree,
+	}, nil
+}
+
 func (s *SysUserService) SaveSysUser(ctx context.Context, req *v1.SaveSysUserRep) (*v1.SaveSysUserReply, error) {
 	id := pkg.GetID()
 	user := &model.BizSysUser{
@@ -137,7 +148,7 @@ func (s *SysUserService) GetSysUser(ctx context.Context, req *v1.GetSysUserRep) 
 		postIds = append(postIds, post.PostId)
 	}
 	return &v1.GetSysUserReply{
-		User:    user,
+		Data:    user,
 		Roles:   roles,
 		RoleIds: roleIds,
 		Posts:   posts,

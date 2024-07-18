@@ -21,7 +21,6 @@ const _ = http.SupportPackageIsVersion1
 
 const OperationSysDeptCreateSysDept = "/api.system.v1.SysDept/CreateSysDept"
 const OperationSysDeptDeleteSysDept = "/api.system.v1.SysDept/DeleteSysDept"
-const OperationSysDeptDeptTree = "/api.system.v1.SysDept/DeptTree"
 const OperationSysDeptExcludeDept = "/api.system.v1.SysDept/ExcludeDept"
 const OperationSysDeptGetSysDept = "/api.system.v1.SysDept/GetSysDept"
 const OperationSysDeptGetSysRoleDept = "/api.system.v1.SysDept/GetSysRoleDept"
@@ -31,7 +30,6 @@ const OperationSysDeptUpdateSysDept = "/api.system.v1.SysDept/UpdateSysDept"
 type SysDeptHTTPServer interface {
 	CreateSysDept(context.Context, *SysDeptRep) (*EmptyReply, error)
 	DeleteSysDept(context.Context, *DeleteSysDeptRep) (*EmptyReply, error)
-	DeptTree(context.Context, *DeptTreeReq) (*DeptTreeReply, error)
 	ExcludeDept(context.Context, *ExcludeDeptRep) (*ListSysDeptReply, error)
 	GetSysDept(context.Context, *GetSysDeptRep) (*GetSysDeptReply, error)
 	GetSysRoleDept(context.Context, *GetSysRoleDeptRep) (*GetSysRoleDeptReply, error)
@@ -47,7 +45,6 @@ func RegisterSysDeptHTTPServer(s *http.Server, srv SysDeptHTTPServer) {
 	r.GET("/v1/dept/info/{id}", _SysDept_GetSysDept0_HTTP_Handler(srv))
 	r.POST("/v1/dept/list", _SysDept_ListSysDept0_HTTP_Handler(srv))
 	r.GET("/v1/dept/list/exclude/{id}", _SysDept_ExcludeDept0_HTTP_Handler(srv))
-	r.GET("/v1/dept/deptTree", _SysDept_DeptTree0_HTTP_Handler(srv))
 	r.GET("/v1/dept/deptTreeByRoleId/{roleId}", _SysDept_GetSysRoleDept0_HTTP_Handler(srv))
 }
 
@@ -183,25 +180,6 @@ func _SysDept_ExcludeDept0_HTTP_Handler(srv SysDeptHTTPServer) func(ctx http.Con
 	}
 }
 
-func _SysDept_DeptTree0_HTTP_Handler(srv SysDeptHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in DeptTreeReq
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, OperationSysDeptDeptTree)
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.DeptTree(ctx, req.(*DeptTreeReq))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*DeptTreeReply)
-		return ctx.Result(200, reply)
-	}
-}
-
 func _SysDept_GetSysRoleDept0_HTTP_Handler(srv SysDeptHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in GetSysRoleDeptRep
@@ -227,7 +205,6 @@ func _SysDept_GetSysRoleDept0_HTTP_Handler(srv SysDeptHTTPServer) func(ctx http.
 type SysDeptHTTPClient interface {
 	CreateSysDept(ctx context.Context, req *SysDeptRep, opts ...http.CallOption) (rsp *EmptyReply, err error)
 	DeleteSysDept(ctx context.Context, req *DeleteSysDeptRep, opts ...http.CallOption) (rsp *EmptyReply, err error)
-	DeptTree(ctx context.Context, req *DeptTreeReq, opts ...http.CallOption) (rsp *DeptTreeReply, err error)
 	ExcludeDept(ctx context.Context, req *ExcludeDeptRep, opts ...http.CallOption) (rsp *ListSysDeptReply, err error)
 	GetSysDept(ctx context.Context, req *GetSysDeptRep, opts ...http.CallOption) (rsp *GetSysDeptReply, err error)
 	GetSysRoleDept(ctx context.Context, req *GetSysRoleDeptRep, opts ...http.CallOption) (rsp *GetSysRoleDeptReply, err error)
@@ -263,19 +240,6 @@ func (c *SysDeptHTTPClientImpl) DeleteSysDept(ctx context.Context, in *DeleteSys
 	opts = append(opts, http.Operation(OperationSysDeptDeleteSysDept))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, nil
-}
-
-func (c *SysDeptHTTPClientImpl) DeptTree(ctx context.Context, in *DeptTreeReq, opts ...http.CallOption) (*DeptTreeReply, error) {
-	var out DeptTreeReply
-	pattern := "/v1/dept/deptTree"
-	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationSysDeptDeptTree))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

@@ -96,7 +96,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.RegisterReply'
-    /v1/config/configKey/{key}:
+    /system/config/configKey/{key}:
         get:
             tags:
                 - SysConfig
@@ -114,6 +114,254 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.ConfigByKeyReply'
+    /system/dict/data/type/{type}:
+        get:
+            tags:
+                - SysDict
+            operationId: SysDict_SysDictDataType
+            parameters:
+                - name: type
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.SysDictDataTypeReply'
+    /system/user/authRole:
+        put:
+            tags:
+                - SysUser
+            operationId: SysUser_AuthRoleSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.AuthRoleSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.AuthRoleSysUserReply'
+    /system/user/authRole/{id}:
+        get:
+            tags:
+                - SysUser
+            operationId: SysUser_GetAuthRoleSysUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetAuthRoleSysUserReply'
+    /system/user/create:
+        post:
+            tags:
+                - SysUser
+            operationId: SysUser_CreateSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.CreateSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.CreateSysUserReply'
+    /system/user/delete/{id}:
+        delete:
+            tags:
+                - SysUser
+            operationId: SysUser_DeleteSysUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.DeleteSysUserReply'
+    /system/user/deptTree:
+        get:
+            tags:
+                - SysUser
+            description: 获取部门树
+            operationId: SysUser_DeptTree
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.DeptTreeReply'
+    /system/user/list:
+        get:
+            tags:
+                - SysUser
+            operationId: SysUser_ListSysUser
+            parameters:
+                - name: pageNum
+                  in: query
+                  description: pageNum
+                  schema:
+                    type: string
+                - name: pageSize
+                  in: query
+                  description: 页面大小
+                  schema:
+                    type: string
+                - name: deptId
+                  in: query
+                  schema:
+                    type: string
+                - name: userName
+                  in: query
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  schema:
+                    type: string
+                - name: phoneNumber
+                  in: query
+                  schema:
+                    type: string
+                - name: params.beginTime
+                  in: query
+                  schema:
+                    type: string
+                - name: params.endTime
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ListSysUserReply'
+    /system/user/otherInfo:
+        get:
+            tags:
+                - SysUser
+            description: 获取角色以及岗位详细信息
+            operationId: SysUser_GetOtherInfo
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetOtherInfoReply'
+    /system/user/profile:
+        get:
+            tags:
+                - SysUser
+            operationId: SysUser_Profile
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ProfileReply'
+    /system/user/resetPwd:
+        put:
+            tags:
+                - SysUser
+            operationId: SysUser_ResetPwd
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.ResetPwdRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.ResetPwdReply'
+    /system/user/save:
+        post:
+            tags:
+                - SysUser
+            operationId: SysUser_SaveSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.SaveSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.SaveSysUserReply'
+    /system/user/update:
+        put:
+            tags:
+                - SysUser
+            operationId: SysUser_UpdateSysUser
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.system.v1.UpdateSysUserRep'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.UpdateSysUserReply'
+    /system/user/{id}:
+        get:
+            tags:
+                - SysUser
+            description: 根据用户ID获取详细信息
+            operationId: SysUser_GetSysUser
+            parameters:
+                - name: id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.system.v1.GetSysUserReply'
     /v1/config/create:
         post:
             tags:
@@ -168,18 +416,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.EmptyReply'
-    /v1/dept/deptTree:
-        get:
-            tags:
-                - SysDept
-            operationId: SysDept_DeptTree
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.DeptTreeReply'
     /v1/dept/deptTreeByRoleId/{roleId}:
         get:
             tags:
@@ -378,24 +614,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.EmptySysDictReply'
-    /v1/dict/data/{type}:
-        get:
-            tags:
-                - SysDict
-            operationId: SysDict_SysDictDataType
-            parameters:
-                - name: type
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.SysDictDataTypeReply'
     /v1/dict/type/delete/{id}:
         delete:
             tags:
@@ -948,194 +1166,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.system.v1.EmptyReply'
-    /v1/user/authRole:
-        put:
-            tags:
-                - SysUser
-            operationId: SysUser_AuthRoleSysUser
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.AuthRoleSysUserRep'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.AuthRoleSysUserReply'
-    /v1/user/authRole/{id}:
-        get:
-            tags:
-                - SysUser
-            operationId: SysUser_GetAuthRoleSysUser
-            parameters:
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.GetAuthRoleSysUserReply'
-    /v1/user/create:
-        post:
-            tags:
-                - SysUser
-            operationId: SysUser_CreateSysUser
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.CreateSysUserRep'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.CreateSysUserReply'
-    /v1/user/delete/{id}:
-        delete:
-            tags:
-                - SysUser
-            operationId: SysUser_DeleteSysUser
-            parameters:
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.DeleteSysUserReply'
-    /v1/user/info/{id}:
-        get:
-            tags:
-                - SysUser
-            description: 根据用户ID获取详细信息
-            operationId: SysUser_GetSysUser
-            parameters:
-                - name: id
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.GetSysUserReply'
-    /v1/user/list:
-        post:
-            tags:
-                - SysUser
-            operationId: SysUser_ListSysUser
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.ListSysUserRep'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.ListSysUserReply'
-    /v1/user/otherInfo:
-        get:
-            tags:
-                - SysUser
-            description: 获取角色以及岗位详细信息
-            operationId: SysUser_GetOtherInfo
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.GetOtherInfoReply'
-    /v1/user/profile:
-        get:
-            tags:
-                - SysUser
-            operationId: SysUser_Profile
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.ProfileReply'
-    /v1/user/resetPwd:
-        put:
-            tags:
-                - SysUser
-            operationId: SysUser_ResetPwd
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.ResetPwdRep'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.ResetPwdReply'
-    /v1/user/save:
-        post:
-            tags:
-                - SysUser
-            operationId: SysUser_SaveSysUser
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.SaveSysUserRep'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.SaveSysUserReply'
-    /v1/user/update:
-        put:
-            tags:
-                - SysUser
-            operationId: SysUser_UpdateSysUser
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.system.v1.UpdateSysUserRep'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.system.v1.UpdateSysUserReply'
 components:
     schemas:
         api.system.v1.AuthRoleSysUserRep:
@@ -1289,7 +1319,7 @@ components:
         api.system.v1.DeptTreeReply:
             type: object
             properties:
-                dept:
+                data:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.system.v1.DeptTree'
@@ -1419,7 +1449,7 @@ components:
         api.system.v1.GetSysUserReply:
             type: object
             properties:
-                user:
+                data:
                     $ref: '#/components/schemas/api.system.v1.UserReply'
                 postIds:
                     type: array
@@ -1606,41 +1636,16 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.system.v1.RoleReply'
-        api.system.v1.ListSysUser:
-            type: object
-            properties:
-                user:
-                    $ref: '#/components/schemas/api.system.v1.UserReply'
-                dept:
-                    $ref: '#/components/schemas/api.system.v1.DeptReply'
-        api.system.v1.ListSysUserRep:
-            type: object
-            properties:
-                pageNum:
-                    type: string
-                    description: pageNum
-                pageSize:
-                    type: string
-                    description: 页面大小
-                deptId:
-                    type: string
-                userName:
-                    type: string
-                status:
-                    type: string
-                phoneNumber:
-                    type: string
-                params:
-                    $ref: '#/components/schemas/api.system.v1.TimeReq'
         api.system.v1.ListSysUserReply:
             type: object
             properties:
                 total:
-                    type: string
+                    type: integer
+                    format: int32
                 rows:
                     type: array
                     items:
-                        $ref: '#/components/schemas/api.system.v1.ListSysUser'
+                        $ref: '#/components/schemas/api.system.v1.UserReply'
         api.system.v1.LoginReply:
             type: object
             properties:
@@ -2086,13 +2091,6 @@ components:
                     type: string
                 remark:
                     type: string
-        api.system.v1.TimeReq:
-            type: object
-            properties:
-                beginTime:
-                    type: string
-                endTime:
-                    type: string
         api.system.v1.UpdateSysUserRep:
             type: object
             properties:
@@ -2155,7 +2153,7 @@ components:
                     type: string
                 email:
                     type: string
-                phoneNumber:
+                phonenumber:
                     type: string
                 sex:
                     type: string
@@ -2187,7 +2185,7 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.system.v1.RoleReply'
-                createdAt:
+                createTime:
                     type: string
             description: 用户通用返回信息
 tags:

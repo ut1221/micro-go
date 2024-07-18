@@ -11,66 +11,73 @@ option java_multiple_files = true;
 option java_package = "api.system.v1";
 
 service SysUser {
+
   rpc CreateSysUser (CreateSysUserRep) returns (CreateSysUserReply){
     option (google.api.http) = {
-      post: "/v1/user/create",
+      post: "/system/user/create",
       body: "*"
     };
   };
   rpc UpdateSysUser (UpdateSysUserRep) returns (UpdateSysUserReply){
     option (google.api.http) = {
-      put: "/v1/user/update",
+      put: "/system/user/update",
       body: "*"
     };
   };
   rpc ResetPwd (ResetPwdRep) returns (ResetPwdReply){
     option (google.api.http) = {
-      put: "/v1/user/resetPwd",
+      put: "/system/user/resetPwd",
       body: "*"
     };
   };
   rpc DeleteSysUser (DeleteSysUserRep) returns (DeleteSysUserReply){
     option (google.api.http) = {
-      delete: "/v1/user/delete/{id}",
+      delete: "/system/user/delete/{id}",
     };
   };
   rpc SaveSysUser (SaveSysUserRep) returns (SaveSysUserReply){
     option (google.api.http) = {
-      post: "/v1/user/save",
+      post: "/system/user/save",
       body: "*"
+    };
+  };
+  rpc ListSysUser (ListSysUserRep) returns (ListSysUserReply){
+    option (google.api.http) = {
+      get: "/system/user/list",
+    };
+  };
+  //获取部门树
+  rpc DeptTree (DeptTreeReq) returns (DeptTreeReply){
+    option (google.api.http) = {
+      get: "/system/user/deptTree",
     };
   };
   //根据用户ID获取详细信息
   rpc GetSysUser (GetSysUserRep) returns (GetSysUserReply){
     option (google.api.http) = {
-      get: "/v1/user/info/{id}"
+      get: "/system/user/{id}"
     };
   };
+
   //获取角色以及岗位详细信息
   rpc GetOtherInfo (GetOtherInfoRep) returns (GetOtherInfoReply){
     option (google.api.http) = {
-      get: "/v1/user/otherInfo"
-    };
-  };
-  rpc ListSysUser (ListSysUserRep) returns (ListSysUserReply){
-    option (google.api.http) = {
-      post: "/v1/user/list",
-      body: "*"
+      get: "/system/user/otherInfo"
     };
   };
   rpc Profile (ProfileRep) returns (ProfileReply){
     option (google.api.http) = {
-      get: "/v1/user/profile",
+      get: "/system/user/profile",
     };
   };
   rpc GetAuthRoleSysUser (GetAuthRoleSysUserRep) returns (GetAuthRoleSysUserReply){
     option (google.api.http) = {
-      get: "/v1/user/authRole/{id}",
+      get: "/system/user/authRole/{id}",
     };
   };
   rpc AuthRoleSysUser (AuthRoleSysUserRep) returns (AuthRoleSysUserReply){
     option (google.api.http) = {
-      put: "/v1/user/authRole",
+      put: "/system/user/authRole",
       body: "*"
     };
   };
@@ -78,6 +85,11 @@ service SysUser {
 
 message CreateSysUserRep {}
 message CreateSysUserReply {}
+
+message DeptTreeReq {}
+message DeptTreeReply {
+  repeated DeptTree data = 1;
+}
 
 message UpdateSysUserRep {
   string userId = 1;
@@ -126,7 +138,7 @@ message GetSysUserRep {
   string id = 1;
 }
 message GetSysUserReply {
-  UserReply user = 1;
+  UserReply data = 1;
   repeated string postIds = 2;
   repeated string roleIds = 3;
   repeated RoleReply roles = 4;
@@ -151,14 +163,14 @@ message ListSysUserRep {
 }
 
 message ListSysUserReply {
-  int64 total = 1;
-  repeated ListSysUser rows = 2;
+  int32 total = 1;
+  repeated UserReply rows = 2;
 }
-
-message ListSysUser {
-  UserReply user = 1;
-  DeptReply dept = 2;
-}
+//
+//message ListSysUser {
+//  UserReply user = 1;
+//  DeptReply dept = 2;
+//}
 
 message ProfileRep {}
 message ProfileReply {

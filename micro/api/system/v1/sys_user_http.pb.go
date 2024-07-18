@@ -22,6 +22,7 @@ const _ = http.SupportPackageIsVersion1
 const OperationSysUserAuthRoleSysUser = "/api.system.v1.SysUser/AuthRoleSysUser"
 const OperationSysUserCreateSysUser = "/api.system.v1.SysUser/CreateSysUser"
 const OperationSysUserDeleteSysUser = "/api.system.v1.SysUser/DeleteSysUser"
+const OperationSysUserDeptTree = "/api.system.v1.SysUser/DeptTree"
 const OperationSysUserGetAuthRoleSysUser = "/api.system.v1.SysUser/GetAuthRoleSysUser"
 const OperationSysUserGetOtherInfo = "/api.system.v1.SysUser/GetOtherInfo"
 const OperationSysUserGetSysUser = "/api.system.v1.SysUser/GetSysUser"
@@ -35,6 +36,8 @@ type SysUserHTTPServer interface {
 	AuthRoleSysUser(context.Context, *AuthRoleSysUserRep) (*AuthRoleSysUserReply, error)
 	CreateSysUser(context.Context, *CreateSysUserRep) (*CreateSysUserReply, error)
 	DeleteSysUser(context.Context, *DeleteSysUserRep) (*DeleteSysUserReply, error)
+	// DeptTree获取部门树
+	DeptTree(context.Context, *DeptTreeReq) (*DeptTreeReply, error)
 	GetAuthRoleSysUser(context.Context, *GetAuthRoleSysUserRep) (*GetAuthRoleSysUserReply, error)
 	// GetOtherInfo获取角色以及岗位详细信息
 	GetOtherInfo(context.Context, *GetOtherInfoRep) (*GetOtherInfoReply, error)
@@ -49,17 +52,18 @@ type SysUserHTTPServer interface {
 
 func RegisterSysUserHTTPServer(s *http.Server, srv SysUserHTTPServer) {
 	r := s.Route("/")
-	r.POST("/v1/user/create", _SysUser_CreateSysUser0_HTTP_Handler(srv))
-	r.PUT("/v1/user/update", _SysUser_UpdateSysUser0_HTTP_Handler(srv))
-	r.PUT("/v1/user/resetPwd", _SysUser_ResetPwd0_HTTP_Handler(srv))
-	r.DELETE("/v1/user/delete/{id}", _SysUser_DeleteSysUser0_HTTP_Handler(srv))
-	r.POST("/v1/user/save", _SysUser_SaveSysUser0_HTTP_Handler(srv))
-	r.GET("/v1/user/info/{id}", _SysUser_GetSysUser0_HTTP_Handler(srv))
-	r.GET("/v1/user/otherInfo", _SysUser_GetOtherInfo0_HTTP_Handler(srv))
-	r.POST("/v1/user/list", _SysUser_ListSysUser0_HTTP_Handler(srv))
-	r.GET("/v1/user/profile", _SysUser_Profile0_HTTP_Handler(srv))
-	r.GET("/v1/user/authRole/{id}", _SysUser_GetAuthRoleSysUser0_HTTP_Handler(srv))
-	r.PUT("/v1/user/authRole", _SysUser_AuthRoleSysUser0_HTTP_Handler(srv))
+	r.POST("/system/user/create", _SysUser_CreateSysUser0_HTTP_Handler(srv))
+	r.PUT("/system/user/update", _SysUser_UpdateSysUser0_HTTP_Handler(srv))
+	r.PUT("/system/user/resetPwd", _SysUser_ResetPwd0_HTTP_Handler(srv))
+	r.DELETE("/system/user/delete/{id}", _SysUser_DeleteSysUser0_HTTP_Handler(srv))
+	r.POST("/system/user/save", _SysUser_SaveSysUser0_HTTP_Handler(srv))
+	r.GET("/system/user/list", _SysUser_ListSysUser0_HTTP_Handler(srv))
+	r.GET("/system/user/deptTree", _SysUser_DeptTree0_HTTP_Handler(srv))
+	r.GET("/system/user/{id}", _SysUser_GetSysUser0_HTTP_Handler(srv))
+	r.GET("/system/user/otherInfo", _SysUser_GetOtherInfo0_HTTP_Handler(srv))
+	r.GET("/system/user/profile", _SysUser_Profile0_HTTP_Handler(srv))
+	r.GET("/system/user/authRole/{id}", _SysUser_GetAuthRoleSysUser0_HTTP_Handler(srv))
+	r.PUT("/system/user/authRole", _SysUser_AuthRoleSysUser0_HTTP_Handler(srv))
 }
 
 func _SysUser_CreateSysUser0_HTTP_Handler(srv SysUserHTTPServer) func(ctx http.Context) error {
@@ -172,6 +176,44 @@ func _SysUser_SaveSysUser0_HTTP_Handler(srv SysUserHTTPServer) func(ctx http.Con
 	}
 }
 
+func _SysUser_ListSysUser0_HTTP_Handler(srv SysUserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListSysUserRep
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationSysUserListSysUser)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListSysUser(ctx, req.(*ListSysUserRep))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListSysUserReply)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _SysUser_DeptTree0_HTTP_Handler(srv SysUserHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DeptTreeReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationSysUserDeptTree)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeptTree(ctx, req.(*DeptTreeReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*DeptTreeReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _SysUser_GetSysUser0_HTTP_Handler(srv SysUserHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in GetSysUserRep
@@ -209,28 +251,6 @@ func _SysUser_GetOtherInfo0_HTTP_Handler(srv SysUserHTTPServer) func(ctx http.Co
 			return err
 		}
 		reply := out.(*GetOtherInfoReply)
-		return ctx.Result(200, reply)
-	}
-}
-
-func _SysUser_ListSysUser0_HTTP_Handler(srv SysUserHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in ListSysUserRep
-		if err := ctx.Bind(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, OperationSysUserListSysUser)
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListSysUser(ctx, req.(*ListSysUserRep))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*ListSysUserReply)
 		return ctx.Result(200, reply)
 	}
 }
@@ -302,6 +322,7 @@ type SysUserHTTPClient interface {
 	AuthRoleSysUser(ctx context.Context, req *AuthRoleSysUserRep, opts ...http.CallOption) (rsp *AuthRoleSysUserReply, err error)
 	CreateSysUser(ctx context.Context, req *CreateSysUserRep, opts ...http.CallOption) (rsp *CreateSysUserReply, err error)
 	DeleteSysUser(ctx context.Context, req *DeleteSysUserRep, opts ...http.CallOption) (rsp *DeleteSysUserReply, err error)
+	DeptTree(ctx context.Context, req *DeptTreeReq, opts ...http.CallOption) (rsp *DeptTreeReply, err error)
 	GetAuthRoleSysUser(ctx context.Context, req *GetAuthRoleSysUserRep, opts ...http.CallOption) (rsp *GetAuthRoleSysUserReply, err error)
 	GetOtherInfo(ctx context.Context, req *GetOtherInfoRep, opts ...http.CallOption) (rsp *GetOtherInfoReply, err error)
 	GetSysUser(ctx context.Context, req *GetSysUserRep, opts ...http.CallOption) (rsp *GetSysUserReply, err error)
@@ -322,7 +343,7 @@ func NewSysUserHTTPClient(client *http.Client) SysUserHTTPClient {
 
 func (c *SysUserHTTPClientImpl) AuthRoleSysUser(ctx context.Context, in *AuthRoleSysUserRep, opts ...http.CallOption) (*AuthRoleSysUserReply, error) {
 	var out AuthRoleSysUserReply
-	pattern := "/v1/user/authRole"
+	pattern := "/system/user/authRole"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationSysUserAuthRoleSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -335,7 +356,7 @@ func (c *SysUserHTTPClientImpl) AuthRoleSysUser(ctx context.Context, in *AuthRol
 
 func (c *SysUserHTTPClientImpl) CreateSysUser(ctx context.Context, in *CreateSysUserRep, opts ...http.CallOption) (*CreateSysUserReply, error) {
 	var out CreateSysUserReply
-	pattern := "/v1/user/create"
+	pattern := "/system/user/create"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationSysUserCreateSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -348,7 +369,7 @@ func (c *SysUserHTTPClientImpl) CreateSysUser(ctx context.Context, in *CreateSys
 
 func (c *SysUserHTTPClientImpl) DeleteSysUser(ctx context.Context, in *DeleteSysUserRep, opts ...http.CallOption) (*DeleteSysUserReply, error) {
 	var out DeleteSysUserReply
-	pattern := "/v1/user/delete/{id}"
+	pattern := "/system/user/delete/{id}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysUserDeleteSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -359,9 +380,22 @@ func (c *SysUserHTTPClientImpl) DeleteSysUser(ctx context.Context, in *DeleteSys
 	return &out, nil
 }
 
+func (c *SysUserHTTPClientImpl) DeptTree(ctx context.Context, in *DeptTreeReq, opts ...http.CallOption) (*DeptTreeReply, error) {
+	var out DeptTreeReply
+	pattern := "/system/user/deptTree"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationSysUserDeptTree))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
 func (c *SysUserHTTPClientImpl) GetAuthRoleSysUser(ctx context.Context, in *GetAuthRoleSysUserRep, opts ...http.CallOption) (*GetAuthRoleSysUserReply, error) {
 	var out GetAuthRoleSysUserReply
-	pattern := "/v1/user/authRole/{id}"
+	pattern := "/system/user/authRole/{id}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysUserGetAuthRoleSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -374,7 +408,7 @@ func (c *SysUserHTTPClientImpl) GetAuthRoleSysUser(ctx context.Context, in *GetA
 
 func (c *SysUserHTTPClientImpl) GetOtherInfo(ctx context.Context, in *GetOtherInfoRep, opts ...http.CallOption) (*GetOtherInfoReply, error) {
 	var out GetOtherInfoReply
-	pattern := "/v1/user/otherInfo"
+	pattern := "/system/user/otherInfo"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysUserGetOtherInfo))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -387,7 +421,7 @@ func (c *SysUserHTTPClientImpl) GetOtherInfo(ctx context.Context, in *GetOtherIn
 
 func (c *SysUserHTTPClientImpl) GetSysUser(ctx context.Context, in *GetSysUserRep, opts ...http.CallOption) (*GetSysUserReply, error) {
 	var out GetSysUserReply
-	pattern := "/v1/user/info/{id}"
+	pattern := "/system/user/{id}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysUserGetSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -400,11 +434,11 @@ func (c *SysUserHTTPClientImpl) GetSysUser(ctx context.Context, in *GetSysUserRe
 
 func (c *SysUserHTTPClientImpl) ListSysUser(ctx context.Context, in *ListSysUserRep, opts ...http.CallOption) (*ListSysUserReply, error) {
 	var out ListSysUserReply
-	pattern := "/v1/user/list"
-	path := binding.EncodeURL(pattern, in, false)
+	pattern := "/system/user/list"
+	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysUserListSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -413,7 +447,7 @@ func (c *SysUserHTTPClientImpl) ListSysUser(ctx context.Context, in *ListSysUser
 
 func (c *SysUserHTTPClientImpl) Profile(ctx context.Context, in *ProfileRep, opts ...http.CallOption) (*ProfileReply, error) {
 	var out ProfileReply
-	pattern := "/v1/user/profile"
+	pattern := "/system/user/profile"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationSysUserProfile))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -426,7 +460,7 @@ func (c *SysUserHTTPClientImpl) Profile(ctx context.Context, in *ProfileRep, opt
 
 func (c *SysUserHTTPClientImpl) ResetPwd(ctx context.Context, in *ResetPwdRep, opts ...http.CallOption) (*ResetPwdReply, error) {
 	var out ResetPwdReply
-	pattern := "/v1/user/resetPwd"
+	pattern := "/system/user/resetPwd"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationSysUserResetPwd))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -439,7 +473,7 @@ func (c *SysUserHTTPClientImpl) ResetPwd(ctx context.Context, in *ResetPwdRep, o
 
 func (c *SysUserHTTPClientImpl) SaveSysUser(ctx context.Context, in *SaveSysUserRep, opts ...http.CallOption) (*SaveSysUserReply, error) {
 	var out SaveSysUserReply
-	pattern := "/v1/user/save"
+	pattern := "/system/user/save"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationSysUserSaveSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -452,7 +486,7 @@ func (c *SysUserHTTPClientImpl) SaveSysUser(ctx context.Context, in *SaveSysUser
 
 func (c *SysUserHTTPClientImpl) UpdateSysUser(ctx context.Context, in *UpdateSysUserRep, opts ...http.CallOption) (*UpdateSysUserReply, error) {
 	var out UpdateSysUserReply
-	pattern := "/v1/user/update"
+	pattern := "/system/user/update"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationSysUserUpdateSysUser))
 	opts = append(opts, http.PathTemplate(pattern))
