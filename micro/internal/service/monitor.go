@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
-	v1 "micro/api/api/system/v1"
+	v1 "micro/api/system/v1"
 	"net"
 	"strconv"
 	"strings"

@@ -3,7 +3,7 @@ package biz
 import (
 	"github.com/go-kratos/kratos/v2/log"
 	"golang.org/x/net/context"
-	v1 "micro/api/api/system/v1"
+	v1 "micro/api/system/v1"
 	"micro/internal/model"
 	"micro/internal/pkg"
 	"strings"

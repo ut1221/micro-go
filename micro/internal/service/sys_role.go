@@ -5,7 +5,7 @@ import (
 	"github.com/go-kratos/kratos/v2/log"
 	"micro/internal/biz"
 
-	v1 "micro/api/api/system/v1"
+	v1 "micro/api/system/v1"
 )
 
 type SysRoleService struct {

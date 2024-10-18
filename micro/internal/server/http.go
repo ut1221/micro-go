@@ -7,7 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/validate"
 	"github.com/go-kratos/kratos/v2/transport/http"
 	"golang.org/x/net/context"
-	v1 "micro/api/api/system/v1"
+	v1 "micro/api/system/v1"
 	"micro/internal/conf"
 	"micro/internal/pkg"
 	"micro/internal/pkg/middleware"

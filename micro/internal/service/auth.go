@@ -5,7 +5,7 @@ import (
 	"errors"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/mojocn/base64Captcha"
-	pb "micro/api/api/system/v1"
+	pb "micro/api/system/v1"
 	"micro/internal/biz"
 	"micro/internal/pkg"
 	"micro/internal/pkg/constants"

@@ -8,7 +8,7 @@ server:
 data:
   database:
     driver: mysql
-    source: root:Pl@1221view@tcp(127.0.0.1:3306)/micro_user?parseTime=True&loc=Local
+    source: root:Pl@1221view@tcp(127.0.0.1:3306)/micro?parseTime=True&loc=Local
   redis:
     username:
     addr: 127.0.0.1:6379

@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"github.com/go-kratos/kratos/v2/log"
-	v1 "micro/api/api/system/v1"
+	v1 "micro/api/system/v1"
 	"micro/internal/biz"
 	"micro/internal/pkg"
 )
